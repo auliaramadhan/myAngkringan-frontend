@@ -1,0 +1,19 @@
+#mu-footer{
+   font-size: 2rem;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   color: grey;
+   background-color: #343a40;
+   div.mu-footer-social{
+      display: flex;
+      justify-content: space-between;
+   }
+   a{
+      text-decoration: none;
+      color: grey;
+      &:hover{
+         color: white;
+      }
+   }
+}
