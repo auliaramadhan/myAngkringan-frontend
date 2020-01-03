@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import {
   Navbar,
   Nav,
@@ -37,9 +37,8 @@ export default function () {
               </NavDropdown>
             </Nav>
 
-            <Nav>
               {!isLogin?
-              <Fragment>
+            <Nav>
                 <Form inline>
               <InputGroup className="input-group-sm">
                   <FormControl
@@ -61,11 +60,14 @@ export default function () {
                   </InputGroup.Append>
                 </InputGroup>
               </Form>
-              <Link class="nav-link" to='#' onClick={handleShow} > Sign aup</Link>
-              </Fragment>: <Link class="nav-link" to='#' onClick={handleShow} >
+              <Link class="nav-link" to='#' onClick={handleShow} > Sign up</Link>
+              </Nav>:<Nav> 
+                <Link class="nav-link" to='#' onClick={handleShow} >
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</Link>
+                <Link class="nav-link" to='#' onClick={handleShow} >
                 <i class="fas fa-user" aria-hidden="true"></i> Profile</Link>
+                </Nav>
               }
-            </Nav>
           </Navbar.Collapse>
         </Navbar>
 
