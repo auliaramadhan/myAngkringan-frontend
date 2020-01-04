@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home1 from "./pages/Front1";
 import Home from "./pages/Home";
 import Item from "./pages/Items";
-import Checkout from "./pages/Checkout";
-import ListItem from "./pages/ListItem";
-import DetailItem from "./pages/DetailItem";
+import Checkout from "./pages/Checkout/Checkout";
+import ListItem from "./pages/ListItem/ListItem";
+import DetailItem from "./pages/DetailItem/DetailItem";
 import ContactUs from "./pages/ContactUs";
 import Navbar from "./component/Navbar"; 
 import Footer from "./component/Footer"; 
