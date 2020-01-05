@@ -25,7 +25,7 @@ class App extends Component {
           </Route>
           <Route path='/homee' component={Home1} exact />
           <Route path='/item' component={Item} exact />
-          <Route path='/detail' component={DetailItem} exact />
+          <Route path='/detail/:id' component={DetailItem} exact />
           <Route path='/contact' component={ContactUs} exact/>
           <Route path='/checkout' component={All(Checkout)} exact/>
           <Route path='/store' component={ListItem} exact/>

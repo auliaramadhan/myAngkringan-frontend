@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Axios from "axios";
 import Modal from "./Modal";
+import useSignUpForm from "../service/customHook";
 
 export default function () {
 
@@ -38,6 +39,17 @@ export default function () {
   };
 
   const [dataLogin, setDataLogin] = useState({})
+  const signUp = useSignUpForm(postDataProfile);
+  const postDataProfile = async () =>{
+    if (signUp.inputs.password === signUp.inputs.repassword) {
+      const result = await Axios.post("http://127.0.0.1:8080/user/register", dataLogin)
+      const data = result.data
+      console.log(data)
+      if (data.success) window.alert('Silahkan login')
+      else window.alert(data.msg);
+    } else{window.alert('passwrod harus sama') }
+  }
+  
   return (
     <div>
       <Fragment>
@@ -103,7 +115,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="username" class="form-control" placeholder="username" type="text" />
+                    <input name="username" class="form-control" placeholder="username" type="text"
+                    onChange={signUp.handleInputChange}
+                    value={signUp.inputs.username} />
                   </div>
                 </div>
                 <div class="form-group">
@@ -111,7 +125,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     </div>
-                    <input name="email" class="form-control" placeholder="Email" type="email" />
+                    <input name="email" class="form-control" placeholder="Email" type="email" 
+                    onChange={signUp.handleInputChange}
+                    value={signUp.inputs.email}/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -119,7 +135,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-lock"></i> password</span>
                     </div>
-                    <input class="form-control" placeholder="password" type="password" />
+                    <input class="form-control" placeholder="password" type="password" 
+                    onChange={signUp.handleInputChange}
+                    value={signUp.inputs.password}/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -127,11 +145,14 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-lock"></i> password again</span>
                     </div>
-                    <input class="form-control" placeholder="repassword" type="repassword" />
+                    <input class="form-control" placeholder="repassword" type="repassword"
+                    onChange={signUp.handleInputChange}
+                    value={signUp.inputs.repassword} />
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                  <button type="submit" class="btn btn-primary btn-block"
+                  onClick={signUp.handleSubmit}> Register  </button>
                 </div>
                 <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
               </form>

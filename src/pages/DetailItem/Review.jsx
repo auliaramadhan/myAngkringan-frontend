@@ -1,61 +1,38 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import useDataFetching from '../../service/fetchHook';
 
-export default function Review() {
+export default function Review({id_item}) {
+   const { loading, results, error } = useDataFetching("http://127.0.0.1:8080/review/"+id_item);
+   const [reviews, setReviews] = useState([])
+
+   useEffect(() => {
+      setReviews(results.data)
+   }, [results])
+
    return (
       <div id="product-tab">
          <div class="row">
-
             <div class="col-md-7">
                <div id="reviews">
                   <ul class="reviews">
-                     <li>
+                     {reviews.map((v,i) => <li>
                         <div class="review-heading">
-                           <h5 class="name">John</h5>
-                           <p class="date">27 DEC 2018, 8:0 PM</p>
+                           <h5 class="name">{v.first_name||"john"}
+                           {v.last_name||"snow"} </h5>
+                           <p class="date">{v.created_on}</p>
                            <div class="review-rating">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-o empty"></i>
+                           {Array(Math.round(v.rating)).fill(
+										<i class="fa fa-star"></i>
+									)}
+									{Array(5 - Math.round(v.rating)).fill(
+										<i class="fa fa-star-0"></i>
+									)}
                            </div>
                         </div>
                         <div class="review-body">
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                           <p>{v.review} </p>
                         </div>
-                     </li>
-                     <li>
-                        <div class="review-heading">
-                           <h5 class="name">John</h5>
-                           <p class="date">27 DEC 2018, 8:0 PM</p>
-                           <div class="review-rating">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star empty"></i>
-                           </div>
-                        </div>
-                        <div class="review-body">
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                        </div>
-                     </li>
-                     <li>
-                        <div class="review-heading">
-                           <h5 class="name">John</h5>
-                           <p class="date">27 DEC 2018, 8:0 PM</p>
-                           <div class="review-rating">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-o empty"></i>
-                           </div>
-                        </div>
-                        <div class="review-body">
-                           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                        </div>
-                     </li>
+                     </li>)}
                   </ul>
                   <ul class="reviews-pagination">
                      <li><a href="#"><i class="fa fa-angle-left"></i></a></li>

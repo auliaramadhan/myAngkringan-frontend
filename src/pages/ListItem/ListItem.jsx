@@ -4,15 +4,17 @@ import Cookies from "js-cookie";
 import Axios from "axios";
 
 
-export default function ListItem() {
+export default function ListItem(props) {
 
    const [items, setItems] = useState([])
+   let query = {byRestaurant:props.byRestaurant}
    useEffect(() => {
       const token = Cookies.get('token')
       async function getdata() {
          const result = await Axios({ method: 'get',
           url: "http://127.0.0.1:8080/item", 
-          headers: { 'Authorization': 'Bearer ' + token } })
+          headers: { 'Authorization': 'Bearer ' + token },
+          params:query})
          console.log(result.data.data)
          setItems(result.data.data)
       }
@@ -20,7 +22,6 @@ export default function ListItem() {
    }, [])
    return (
       <div class="container">
-
          <div class="store-filter clearfix">
             <div class="store-sort" >
                <div class="form-group">
@@ -30,7 +31,7 @@ export default function ListItem() {
                </div>
                <label>
                   Sort By:
-									<select class="input-select">
+							<select class="input-select" name="category">
                      <option value="0">Popular</option>
                      <option value="1">Position</option>
                   </select>
@@ -52,8 +53,9 @@ export default function ListItem() {
 
          <div class="row">
             {items.map( (v,i) =>
-               <div class="col-md-4 col-sm-6">
-               <Product />
+               <div class="col-md-4 col-sm-6" key={i}>
+               <Product item={v}
+               norestauran={props.byRestaurant?false:true} />
             </div>)}
             {/* ini bisa filipatgandakan */}
          </div>
