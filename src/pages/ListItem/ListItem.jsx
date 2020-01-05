@@ -73,7 +73,8 @@ export default function ListItem(props) {
          <div class="store-filter clearfix">
             <span class="store-qty">Showing 20-100 products</span>
             <ul class="store-pagination">
-            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+            <li onClick={() => setQuery({ ...query, page: (query.page + 1) })}>
+               <i class="fa fa-angle-left"></i></li>
                {items.page &&
                   _.range(items.page.current_page - 3,
                      items.page.current_page + 3).filter(i => 0 < i )
@@ -86,13 +87,9 @@ export default function ListItem(props) {
                         )
                      })
                }
-               <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+               <li onClick={() => setQuery({ ...query, page: (query.page + 1) })}>
+                  <i class="fa fa-angle-right"></i></li>
 
-               {/* <li class="active">1</li>
-               <li><a href="#" onClick={() => setQuery({...query, page:2})}>2</a></li>
-               <li><a href="#">3</a></li>
-               <li><a href="#">4</a></li>
-               <li><a href="#"><i class="fa fa-angle-right"></i></a></li> */}
             </ul>
          </div>
 

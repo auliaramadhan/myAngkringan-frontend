@@ -29,7 +29,9 @@ const isValidRole = ({role, allowedRoles}) => allowedRoles.includes(role);
     
     render(){
         const {roles} = this.state.user;
-        return isValidRole({roles, allowedRoles: allowedRoles}) ?
+        console.log(roles)
+        console.log()
+        return isValidRole({role:roles, allowedRoles: allowedRoles}) ?
             <wrappedComponent/>:
             <h1> Hai! kamu tidak boleh masuk dihalaman ini, rasakan chidorii ini - regards {allowedRoles.join(', ')}</h1>
     }

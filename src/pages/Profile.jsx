@@ -9,9 +9,10 @@ export default function Profile() {
    const [disable, setDisable] = useState(true)
    const toggleDisable = () => setDisable(!disable)
    const postDataProfile = async () =>{
+      const inputData = inputs
       const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
       headers: { 'Authorization': 'Bearer ' + token },
-      data: inputs })
+      data: inputData })
       console.log(result)
       setDisable(false)
    }
@@ -43,37 +44,31 @@ export default function Profile() {
                         <label htmlFor="first_name">First Name</label>
                         <input class="input" type="text" name="first_name" placeholder="First Name" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.first_name} />
+                        value={inputs&&inputs.first_name} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Last Name</label>
                         <input class="input" type="text" name="last_name" placeholder="Last Name" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs.last_name} />
-                     </div>
-                     <div class="form-group">
-                        <label htmlFor="">Email</label>
-                        <input class="input" type="email" name="email" placeholder="Email" disabled={disable}
-                           onChange={handleInputChange}
-                           value={inputs.email} />
+                           value={inputs&&inputs.last_name} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Address</label>
                         <input class="input" type="text" name="address" placeholder="Address" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs.address} />
+                           value={inputs&&inputs.address} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Date Of Birth</label>
                         <input class="input" type="date" name="date_of_birth" placeholder="date_of_birth" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.phone}/>
+                        value={inputs&&inputs.date_of_birth}/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">City</label>
                         <input class="input" type="text" name="city_of_birth" placeholder="City" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.city_of_birth} />
+                        value={inputs&&inputs.city_of_birth} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Country</label>
@@ -87,7 +82,7 @@ export default function Profile() {
                         <label htmlFor="">Telephone</label>
                         <input class="input" type="tel" name="phone" placeholder="Telephone" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.phone}/>
+                        value={inputs&&inputs.phone}/>
                      </div>
                      <a href="#" class="primary-btn order-submit" onClick={handleSubmit}
                      style={{margin:'0 auto'}} >Save</a>

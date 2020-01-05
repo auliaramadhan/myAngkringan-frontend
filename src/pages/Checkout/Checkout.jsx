@@ -36,31 +36,31 @@ export default function Checkout() {
                         <label htmlFor="first_name">First Name</label>
                         <input class="input" type="text" name="first_name" placeholder="First Name" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.first_name} />
+                        value={inputs&&inputs.first_name} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Last Name</label>
                         <input class="input" type="text" name="last_name" placeholder="Last Name" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs.last_name} />
+                           value={inputs&&inputs.last_name} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Email</label>
                         <input class="input" type="email" name="email" placeholder="Email" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs.email} />
+                           value={inputs&&inputs.email} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Address</label>
                         <input class="input" type="text" name="address" placeholder="Address" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs.address} />
+                           value={inputs&&inputs.address} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">City</label>
                         <input class="input" type="text" name="city_of_birth" placeholder="City" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.city_of_birth} />
+                        value={inputs&&inputs.city_of_birth} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Country</label>
@@ -74,7 +74,7 @@ export default function Checkout() {
                         <label htmlFor="">Telephone</label>
                         <input class="input" type="tel" name="phone" placeholder="Telephone" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs.phone}/>
+                        value={inputs&&inputs.phone}/>
                      </div>
                      </div>
                      <div class="form-group">

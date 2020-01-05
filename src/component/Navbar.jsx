@@ -41,12 +41,12 @@ export default function () {
   const [dataLogin, setDataLogin] = useState({})
   const postDataProfile = async () =>{
     if (signUp.inputs.password === signUp.inputs.repassword) {
-      const result = await Axios.post("http://127.0.0.1:8080/user/register", dataLogin)
+      const result = await Axios.post("http://127.0.0.1:8080/user/registrasi", dataLogin)
       const data = result.data
       console.log(data)
       if (data.success) window.alert('Silahkan login')
       else window.alert(data.msg);
-    } else{window.alert('passwrod harus sama') }
+    } else{window.alert('password harus sama') }
   }
   const signUp = useSignUpForm(postDataProfile);
   
@@ -147,7 +147,7 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-lock"></i> password again</span>
                     </div>
-                    <input class="form-control" placeholder="repassword" type="repassword"
+                    <input class="form-control" placeholder="repassword" type="password"
                     onChange={signUp.handleInputChange}
                     value={signUp.inputs.repassword} />
                   </div>
