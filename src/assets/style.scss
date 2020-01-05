@@ -934,8 +934,9 @@ textarea.input {
 	}
 	.product-img {
 		position: relative;
+		text-align: center;
 		>img {
-			width: 100%;
+			width: 70%;
 		}
 		.product-label {
 			position: absolute;
@@ -960,7 +961,7 @@ textarea.input {
 	}
 	.product-body {
 		position: relative;
-		padding: 15px;
+		padding: 5px;
 		background-color: $background_color_2;
 		text-align: center;
 		z-index: 20;
@@ -997,8 +998,6 @@ textarea.input {
 			height: 20px;
 			>i {
 				position: relative;
-				width: 14px;
-				margin-right: -4px;
 				background: #FFF;
 				color: $color_6;
 				z-index: 10;
@@ -1708,20 +1707,21 @@ textarea.input {
 				cursor: pointer;
 				padding: 0px 3px;
 				margin: 0px;
-				&:before {
-					content: "\f006";
-					font-family: $font_family_2;
+				&::before {
+					content: "\f005";
+					font-family: 'Font Awesome\ 5 Free';
+  					font-weight: 900;
 					color: $color_6;
 					-webkit-transition: 0.2s all;
 					transition: 0.2s all;
 				}
 				&:hover {
-					&:before {
+					&::before {
 						color: $color_3;
 					}
 				}
 				&:hover~label {
-					&:before {
+					&::before {
 						color: $color_3;
 					}
 				}
@@ -1729,15 +1729,13 @@ textarea.input {
 			>input {
 				&:checked {
 					label {
-						&:before {
-							content: "\f005";
+						&::before {
 							color: $color_3;
 						}
 					}
 				}
 				&:checked~label {
-					&:before {
-						content: "\f005";
+					&::before {
 						color: $color_3;
 					}
 				}
@@ -2070,4 +2068,63 @@ textarea.input {
 		flex-flow: row nowrap;
 		align-items: center;
 	}
+ }
+
+ .card-img-overlay{
+	 background: linear-gradient(45deg , #ffffff, rgba(255, 255, 255, 0.425));
+	 width: 50%;
+	 position: relative;
+	 right: 10px;
+ }
+
+ .col-sm-10{
+	.restauran-detail-btn {
+		position: relative;
+		border: 2px solid transparent;
+		height: 40px;
+		padding: 0 30px;
+		background-color: $background_color_8;
+		color: $color_4;
+		text-transform: uppercase;
+		font-weight: 700;
+		border-radius: 40px;
+		-webkit-transition: 0.2s all;
+		transition: 0.2s all;
+		>i {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 40px;
+			height: 40px;
+			line-height: 38px;
+			color: $color_3;
+			opacity: 0;
+			visibility: hidden;
+		}
+		&:hover {
+			background-color: $background_color_2;
+			color: $color_3;
+			border-color: $border_color_1;
+			padding: 0px 30px 0px 50px;
+			>i {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+	}
+ }
+
+ .form-profile{
+	 .form-group{
+		 display: flex;
+		 flex-flow: row wrap;
+		 align-items: baseline;
+		 label{
+			 flex: 0 0 100px;
+		 }
+		 input{
+			flex: 0 0 calc(100% - 100px); 
+			justify-self: flex-end;
+		 }
+	 }
  }

@@ -1,13 +1,31 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import imgProduct from '../../assets/img/product04.png'
 import Slider from 'react-slick'
 import Product from '../../component/Product';
+import Review from './Review';
+import { Link } from 'react-router-dom';
+import Cookies from "js-cookie";
+import Axios from "axios";
 
 
 export default function DetailItem() {
+	const [showcase, setShowcase] = useState([])
+   useEffect(() => {
+      const token = Cookies.get('token')
+      async function getdata() {
+         const result = await Axios({ method: 'get',
+          url: "http://127.0.0.1:8080/item/33", 
+          headers: { 'Authorization': 'Bearer ' + token } })
+         console.log(result.data.data)
+         setShowcase(result.data.showcase)
+      }
+      getdata()
+   }, [])
+
 	var settings = {
 		dots: true,
 		infinite: true,
+      centerMode: true,
 		slidesToShow: 3,
 		slidesToScroll: 1,
 		autoplay: true,
@@ -15,7 +33,8 @@ export default function DetailItem() {
 		pauseOnHover: true,
 		swipeToSlide: true,
 		adaptiveHeight: true,
-		className: 'slides',
+		className: 'slides center',
+		centerPadding: "60px",
 		responsive: [
 			{
 				breakpoint: 1024,
@@ -59,7 +78,7 @@ export default function DetailItem() {
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o"></i>
 								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
+								<p>10 Review(s) | Add your review</p>
 							</div>
 							<div>
 								<h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
@@ -94,15 +113,9 @@ export default function DetailItem() {
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
 	
-							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
-							</ul>
-	
 							<ul class="product-links">
 								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li><Link to="#">Headphones</Link></li>
 							</ul>
 	
 							<ul class="product-links">
@@ -119,7 +132,7 @@ export default function DetailItem() {
 
 {/* review */}
 				<div class="col-md-12">
-					
+					<Review />
 				</div>
 
 				<div class="col-md-12">
@@ -129,9 +142,9 @@ export default function DetailItem() {
 					<Slider {...settings}>
 
 						<div class='row'>
-							<div className="col-xs-10">
-								<Product />
-							</div>
+							{showcase.map((v,i) =>
+								<div className="col-xs-10">
+								<Product /></div>)}
 						</div>
 					</Slider>
 				</div>

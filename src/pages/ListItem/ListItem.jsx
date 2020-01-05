@@ -1,8 +1,23 @@
-import React from 'react'
-import imgProduct from '../../assets/img/product04.png'
+import React, { useState, useEffect } from 'react'
 import Product from '../../component/Product'
+import Cookies from "js-cookie";
+import Axios from "axios";
+
 
 export default function ListItem() {
+
+   const [items, setItems] = useState([])
+   useEffect(() => {
+      const token = Cookies.get('token')
+      async function getdata() {
+         const result = await Axios({ method: 'get',
+          url: "http://127.0.0.1:8080/item", 
+          headers: { 'Authorization': 'Bearer ' + token } })
+         console.log(result.data.data)
+         setItems(result.data.data)
+      }
+      getdata()
+   }, [])
    return (
       <div class="container">
 
@@ -36,11 +51,11 @@ export default function ListItem() {
          </div>
 
          <div class="row">
-            <div class="col-md-4 col-sm-6" style={{padding:'2vh'}}>
+            {items.map( (v,i) =>
+               <div class="col-md-4 col-sm-6">
                <Product />
-            </div>
+            </div>)}
             {/* ini bisa filipatgandakan */}
-
          </div>
 
 

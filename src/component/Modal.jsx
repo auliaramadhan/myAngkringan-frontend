@@ -3,7 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 
 
 export default function(props) {
-   console.log(props)
    return (
       <Modal show={props.show} onHide={props.hide}>
          <Modal.Header closeButton>

@@ -1,7 +1,22 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import CartSummary from './cart'
+import useSignUpForm from '../../service/customHook'
+import Cookies from "js-cookie";
+import Axios from "axios";
+
 
 export default function Checkout() {
+   const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm();
+   useEffect(() => {
+      const token = Cookies.get('token')
+      async function getdata() {
+         const result = await Axios({ method: 'get', url: "http://127.0.0.1:8080/profile",
+          headers: { 'Authorization': 'Bearer ' + token } })
+         console.log(result.data.data)
+         setInputs(result.data.data[0])
+      }
+      getdata()
+   }, [])
    return (
       <main className="section">
          <div class="container">
@@ -72,7 +87,7 @@ export default function Checkout() {
                         I've read and accept the <a href="#">terms & conditions</a>
                      </label>
                   </div>
-                  <a href="#" class="primary-btn order-submit">Place order</a>
+                  <button class="primary-btn order-submit">Place order</button>
                </div>
    
             </div>

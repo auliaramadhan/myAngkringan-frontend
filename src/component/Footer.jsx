@@ -5,7 +5,7 @@ export default function Footer() {
    return (
       
          <footer id="mu-footer">
-        <div class="mu-footer-area">
+        <div class="mu-footer-area mt-4">
            <div class="mu-footer-social">
             <a href="#"><i class="fab fa-facebook"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
