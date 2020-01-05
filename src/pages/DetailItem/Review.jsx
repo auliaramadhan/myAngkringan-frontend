@@ -7,7 +7,8 @@ export default function Review({id_item}) {
 
    useEffect(() => {
       setReviews(results.data)
-   }, [results])
+
+   }, [])
 
    return (
       <div id="product-tab">
@@ -15,7 +16,8 @@ export default function Review({id_item}) {
             <div class="col-md-7">
                <div id="reviews">
                   <ul class="reviews">
-                     {reviews.map((v,i) => <li>
+                     {reviews && reviews.length > 0 &&
+                     reviews.map((v,i) => <li>
                         <div class="review-heading">
                            <h5 class="name">{v.first_name||"john"}
                            {v.last_name||"snow"} </h5>

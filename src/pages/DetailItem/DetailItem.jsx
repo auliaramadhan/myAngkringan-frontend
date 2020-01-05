@@ -25,6 +25,22 @@ export default function DetailItem(props) {
 		getdata()
 	}, [])
 
+	const [qty, setQty] = useState(0)
+	const addCart = async () => {
+		const token = Cookies.get('token')
+		if (!qty) {
+			window.alert('minimal 1 qty')
+		} else {
+			const result = await Axios({
+				method: 'post',
+				url: "http://127.0.0.1:8080/cart/",
+				headers: { 'Authorization': 'Bearer ' + token },
+				data: { id_item: props.match.params.id, qty: qty }
+			})
+			console.log(result)
+		}
+	}
+
 	var settings = {
 		dots: true,
 		infinite: true,
@@ -65,7 +81,7 @@ export default function DetailItem(props) {
 					<div class="col-md-6">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src={imgProduct} alt="gambar" />
+								<img src={"http://localhost:8080".concat(item.image.substr(6))} alt={imgProduct} />
 							</div>
 						</div>
 					</div>
@@ -75,17 +91,12 @@ export default function DetailItem(props) {
 							<h2 class="product-name">{item.name}</h2>
 							<div>
 								<div class="product-rating">
-									{Array(Math.round(item.rating)).fill(
+									{Array((Math.round(item.rating)) + 1).fill(
 										<i class="fa fa-star"></i>
 									)}
-									{Array(5 - Math.round(item.rating)).fill(
-										<i class="fa fa-star-0"></i>
+									{Array(4 - Math.round(item.rating)).fill(
+										<i class="fa fa-star" style={{ color: '#343A40' }}></i>
 									)}
-									{/* <i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i> */}
 								</div>
 								<p>10 Review(s) | Add your review</p>
 							</div>
@@ -94,34 +105,19 @@ export default function DetailItem(props) {
 								{/* <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3> */}
 								<span class="product-available">In Stock</span>
 							</div>
-								<p>{ item.}</p>
-
-							<div class="product-options">
-								<label>
-									Size
-										<select class="input-select">
-										<option value="0">X</option>
-									</select>
-								</label>
-								<label>
-									Color
-										<select class="input-select">
-										<option value="0">Red</option>
-									</select>
-								</label>
-							</div>
+							<p>{item.description || 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus odit itaque quaerat tenetur ducimus doloremque perspiciatis nisi odio, iste accusantium dolor qui aperiam harum facere sit obcaecati enim eveniet nulla.'} </p>
 
 							<div class="add-to-cart">
 								<div class="qty-label">
 									Qty
 										<div class="input-number">
-										<input type="number" />
-										<span class="qty-up" onClick>+</span>
-										<span class="qty-down" onClick>-</span>
+										<input type="number" value={qty} disabled />
+										<span class="qty-up" onClick={() => setQty(qty + 1)}>+</span>
+										<span class="qty-down" onClick={() => qty ? setQty(qty - 1) : qty}>-</span>
 									</div>
 								</div>
 								<button class="add-to-cart-btn"
-									onClick>
+									onClick={addCart}>
 									<i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
 
@@ -153,11 +149,11 @@ export default function DetailItem(props) {
 					</div>
 					<Slider {...settings}>
 
-						<div class='row'>
-							{showcase.map((v, i) =>
-								<div className="col-xs-10">
-									<Product item={v}/></div>)}
-						</div>
+						{/* div*5>h3{hai}*3 */}
+						{showcase.map((v, i) =>
+							<div style={{ margin: '20px' }}>
+								<Product item={v} />
+							</div>)}
 					</Slider>
 				</div>
 			</div>

@@ -8,6 +8,13 @@ import Axios from "axios";
 export default function Profile() {
    const [disable, setDisable] = useState(true)
    const toggleDisable = () => setDisable(!disable)
+   const postDataProfile = async () =>{
+      const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
+      headers: { 'Authorization': 'Bearer ' + token },
+      data: inputs })
+      console.log(result)
+      setDisable(false)
+   }
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm(postDataProfile);
    const token = Cookies.get('token')
    useEffect(() => {
@@ -20,15 +27,7 @@ export default function Profile() {
       getdata()
    }, [disable])
 
-   const postDataProfile = async () =>{
-      const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
-      headers: { 'Authorization': 'Bearer ' + token },
-      data: inputs })
-      console.log(result)
-      setDisable(false)
-   }
-
-
+  
    return (
       <div className="conatiner">
          <div className="row justify-content-sm-center">
@@ -65,6 +64,12 @@ export default function Profile() {
                            value={inputs.address} />
                      </div>
                      <div class="form-group">
+                        <label htmlFor="">Date Of Birth</label>
+                        <input class="input" type="date" name="date_of_birth" placeholder="date_of_birth" disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs.phone}/>
+                     </div>
+                     <div class="form-group">
                         <label htmlFor="">City</label>
                         <input class="input" type="text" name="city_of_birth" placeholder="City" disabled={disable}
                         onChange={handleInputChange}
@@ -81,12 +86,6 @@ export default function Profile() {
                      <div class="form-group">
                         <label htmlFor="">Telephone</label>
                         <input class="input" type="tel" name="phone" placeholder="Telephone" disabled={disable}
-                        onChange={handleInputChange}
-                        value={inputs.phone}/>
-                     </div>
-                     <div class="form-group">
-                        <label htmlFor="">Telephone</label>
-                        <input class="input" type="date" name="date_of_birth" placeholder="date_of_birth" disabled={disable}
                         onChange={handleInputChange}
                         value={inputs.phone}/>
                      </div>

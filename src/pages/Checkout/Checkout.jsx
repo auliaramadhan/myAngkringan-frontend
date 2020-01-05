@@ -17,10 +17,14 @@ export default function Checkout() {
       }
       getdata()
    }, [])
+   
+   const [disable, setDisable] = useState(true)
+
+
    return (
       <main className="section">
          <div class="container">
-            <div className="row">
+            <div className="row justify-content-sm-center">
    
                <div class="col-md-4">
                   {/* billing details */}
@@ -29,50 +33,64 @@ export default function Checkout() {
                         <h3 class="title">Billing address</h3>
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="first-name" placeholder="First Name" />
+                        <label htmlFor="first_name">First Name</label>
+                        <input class="input" type="text" name="first_name" placeholder="First Name" disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs.first_name} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="last-name" placeholder="Last Name" />
+                        <label htmlFor="">Last Name</label>
+                        <input class="input" type="text" name="last_name" placeholder="Last Name" disabled={disable}
+                           onChange={handleInputChange}
+                           value={inputs.last_name} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="email" name="email" placeholder="Email" />
+                        <label htmlFor="">Email</label>
+                        <input class="input" type="email" name="email" placeholder="Email" disabled={disable}
+                           onChange={handleInputChange}
+                           value={inputs.email} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="address" placeholder="Address" />
+                        <label htmlFor="">Address</label>
+                        <input class="input" type="text" name="address" placeholder="Address" disabled={disable}
+                           onChange={handleInputChange}
+                           value={inputs.address} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="city" placeholder="City" />
+                        <label htmlFor="">City</label>
+                        <input class="input" type="text" name="city_of_birth" placeholder="City" disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs.city_of_birth} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="country" placeholder="Country" />
+                        <label htmlFor="">Country</label>
+                        <input class="input" type="text" name="country" placeholder="Country"  disabled={disable}/>
                      </div>
                      <div class="form-group">
-                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code" />
+                        <label htmlFor="">ZIP Code</label>
+                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code" disabled={disable} />
                      </div>
                      <div class="form-group">
-                        <input class="input" type="tel" name="tel" placeholder="Telephone" />
+                        <label htmlFor="">Telephone</label>
+                        <input class="input" type="tel" name="phone" placeholder="Telephone" disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs.phone}/>
+                     </div>
                      </div>
                      <div class="form-group">
                         <div class="input-checkbox">
-                           <input type="checkbox" id="create-account" />
+                           <input type="checkbox" id="create-account" 
+                           onChange={e => setDisable(!e.target.checked)} />
                            <label for="create-account">
                               <span></span>
-                              Create Account?
+                              Different account?
       									</label>
-                           <div class="caption">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                              <input class="input" type="password" name="password" placeholder="Enter Your Password" />
-                           </div>
                         </div>
                      </div>
                   </div>
+   
+   
 
-                  <div class="order-notes">
-                     <textarea class="input" placeholder="Order Notes"></textarea>
-                  </div>
-               </div>
-   
-   
                <div class="col-md-8 order-details">
                   <div class="section-title text-center">
                      <h3 class="title">Your Order</h3>
@@ -89,7 +107,7 @@ export default function Checkout() {
                   </div>
                   <button class="primary-btn order-submit">Place order</button>
                </div>
-   
+
             </div>
    
          </div>

@@ -33,13 +33,12 @@ export default function () {
     const data = result.data
     console.log(data)
     if (data.success) {
-      Cookies.set('token', data.auth, {expires:1/24});
+      Cookies.set('token', data.auth, {expires:24});
       setisLogin(true)
     }else window.alert(data.msg);
   };
 
   const [dataLogin, setDataLogin] = useState({})
-  const signUp = useSignUpForm(postDataProfile);
   const postDataProfile = async () =>{
     if (signUp.inputs.password === signUp.inputs.repassword) {
       const result = await Axios.post("http://127.0.0.1:8080/user/register", dataLogin)
@@ -49,7 +48,10 @@ export default function () {
       else window.alert(data.msg);
     } else{window.alert('passwrod harus sama') }
   }
+  const signUp = useSignUpForm(postDataProfile);
   
+  
+
   return (
     <div>
       <Fragment>

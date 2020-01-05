@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function Product(props) {
    return (
+
       <div class="product" >
          <div class="product-img">
             <img src={"http://localhost:8080".concat(props.item.image.substr(6))} alt="" />
@@ -19,10 +20,13 @@ export default function Product(props) {
             <div class="product-rating">
                {Array(Math.round(props.item.rating)).fill(
                   <i class="fa fa-star"></i>
-                  )}
+               )}
             </div>
-            <Link to={{pathname:'/detail/'+props.item.id,state:props.item}}
-             class="add-to-cart-btn"><i class="fa fa-eye"></i> See Detail</Link>
+            <Link to={{ pathname: '/detail/' + props.item.id, state: props.item }}>
+               <button class="add-to-cart-btn">
+                  <i class="fa fa-eye"></i> See Detail
+            </button>
+            </Link>
             <div class="product-btns">
                {/* <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
                      <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>

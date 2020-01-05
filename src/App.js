@@ -21,16 +21,16 @@ class App extends Component {
       <Router>
         <Navbar/>
         <Switch>
-          <Route path='/' render={()=> <Home/>} exact>
-          </Route>
+          <Route path='/' component={Home} exact />
           <Route path='/homee' component={Home1} exact />
           <Route path='/item' component={Item} exact />
           <Route path='/detail/:id' component={DetailItem} exact />
           <Route path='/contact' component={ContactUs} exact/>
-          <Route path='/checkout' component={All(Checkout)} exact/>
+          {/* <Route path='/checkout' component={All(Checkout)} exact/> */}
+          <Route path='/checkout' component={Checkout} exact/>
           <Route path='/store' component={ListItem} exact/>
           <Route path='/restaurant/:id' component={Restaurants} exact/>
-          <Route path='/profile' component={All(Profile)} exact/>
+          <Route path='/profile' component={Profile} exact/>
         </Switch>
         <Footer/>
       </Router>
