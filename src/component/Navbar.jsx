@@ -21,46 +21,51 @@ export default function () {
   const [show, setShow] = useState(false);
   const [isLogin, setisLogin] = useState(false);
   useEffect(() => {
-    setisLogin(Cookies.get('token')?true:false)
+    setisLogin(Cookies.get('token') ? true : false)
     console.log(isLogin)
   }, [])
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const logout = () => {Cookies.remove('token');setisLogin(false) }
+  const logout = () => { Cookies.remove('token'); setisLogin(false) }
   const login = async () => {
     const result = await Axios.post("http://127.0.0.1:8080/user/login", dataLogin)
     const data = result.data
     console.log(data)
     if (data.success) {
-      Cookies.set('token', data.auth, {expires:24});
+      Cookies.set('token', data.auth, { expires: 24 });
       setisLogin(true)
-    }else window.alert(data.msg);
+    } else window.alert(data.msg);
   };
 
   const [dataLogin, setDataLogin] = useState({})
-  const postDataProfile = async () =>{
+  const postDataProfile = async () => {
+    console.log(signUp.inputs)
     if (signUp.inputs.password === signUp.inputs.repassword) {
-      const result = await Axios.post("http://127.0.0.1:8080/user/registrasi", dataLogin)
-      const data = result.data
-      console.log(data)
-      if (data.success) window.alert('Silahkan login')
-      else window.alert(data.msg);
-    } else{window.alert('password harus sama') }
+      try {
+        const result = await Axios.post("http://127.0.0.1:8080/user/registrasi", signUp.inputs)
+        const data = result.data
+        console.log(data)
+        if (data.success) window.alert('Silahkan login')
+        else window.alert(data.msg);
+      } catch (error) {
+        window.alert(error)
+      }
+    } else { window.alert('password harus sama') }
   }
   const signUp = useSignUpForm(postDataProfile);
-  
-  
+
+
 
   return (
     <div>
       <Fragment>
         <Navbar style={{ padding: '0.25rem 1rem' }} bg="dark" variant="dark" expand="lg">
-          <Navbar.Brand to="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand to="#home"><strong>My Angkringan</strong></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Link class="nav-link" to="/home">Home</Link>
+              <Link class="nav-link" to="/">Home</Link>
               <Link class="nav-link" to="/store">Store</Link>
             </Nav>
 
@@ -72,16 +77,16 @@ export default function () {
                       type="text"
                       placeholder="username"
                       className=""
-                      onChange={(e)=> setDataLogin({...dataLogin,username:e.target.value})}
+                      onChange={(e) => setDataLogin({ ...dataLogin, username: e.target.value })}
                       value={dataLogin.username}
-                      
+
                     />
                     <FormControl
                       type="password"
                       placeholder="password"
                       class=""
                       style={{ backgroundClip: 'border-box' }}
-                      onChange={(e)=> setDataLogin({...dataLogin,password:e.target.value})}
+                      onChange={(e) => setDataLogin({ ...dataLogin, password: e.target.value })}
                       value={dataLogin.password}
 
                     />
@@ -117,9 +122,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
-                    <input name="username" class="form-control" placeholder="username" type="text"
-                    onChange={signUp.handleInputChange}
-                    value={signUp.inputs.username} />
+                    <input name="username" class="form-control" placeholder="username" type="text" name="username"
+                      onChange={signUp.handleInputChange}
+                      value={signUp.inputs.username} />
                   </div>
                 </div>
                 <div class="form-group">
@@ -127,9 +132,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     </div>
-                    <input name="email" class="form-control" placeholder="Email" type="email" 
-                    onChange={signUp.handleInputChange}
-                    value={signUp.inputs.email}/>
+                    <input name="email" class="form-control" placeholder="Email" type="email" name="email"
+                      onChange={signUp.handleInputChange}
+                      value={signUp.inputs.email} />
                   </div>
                 </div>
                 <div class="form-group">
@@ -137,9 +142,9 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-lock"></i> password</span>
                     </div>
-                    <input class="form-control" placeholder="password" type="password" 
-                    onChange={signUp.handleInputChange}
-                    value={signUp.inputs.password}/>
+                    <input class="form-control" placeholder="password" type="password" name="password"
+                      onChange={signUp.handleInputChange}
+                      value={signUp.inputs.password} />
                   </div>
                 </div>
                 <div class="form-group">
@@ -147,14 +152,14 @@ export default function () {
                     <div class="input-group-prepend">
                       <span class="input-group-text"> <i class="fa fa-lock"></i> password again</span>
                     </div>
-                    <input class="form-control" placeholder="repassword" type="password"
-                    onChange={signUp.handleInputChange}
-                    value={signUp.inputs.repassword} />
+                    <input class="form-control" placeholder="repassword" type="password" name="repassword"
+                      onChange={signUp.handleInputChange}
+                      value={signUp.inputs.repassword} />
                   </div>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-block"
-                  onClick={signUp.handleSubmit}> Register  </button>
+                    onClick={signUp.handleSubmit}> Register  </button>
                 </div>
                 <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
               </form>

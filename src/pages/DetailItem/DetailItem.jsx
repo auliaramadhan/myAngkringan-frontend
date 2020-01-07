@@ -23,7 +23,12 @@ export default function DetailItem(props) {
 			setShowcase(result.data.showcase)
 		}
 		getdata()
-	}, [])
+	}, [props.match.params.id])
+
+	// const [urlReview, setUrlReview] = useState(props.match.params.id)
+	// useEffect(() => {
+	// 		setUrlReview(props.match.params.id)
+	// }, [props.match.params.id])
 
 	const [qty, setQty] = useState(0)
 	const addCart = async () => {
@@ -94,7 +99,7 @@ export default function DetailItem(props) {
 									{Array((Math.round(item.rating)) + 1).fill(
 										<i class="fa fa-star"></i>
 									)}
-									{Array(4 - Math.round(item.rating)).fill(
+									{Array(6 - Math.round(item.rating)).fill(
 										<i class="fa fa-star" style={{ color: '#343A40' }}></i>
 									)}
 								</div>

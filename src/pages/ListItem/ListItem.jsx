@@ -48,7 +48,7 @@ export default function ListItem(props) {
                   Show:
 							<select class="input-select" onChange={(e) => setQuery({ ...query, limit: e.target.value })}>
                      <option value="5">5</option>
-                     <option value="10" >10</option>
+                     <option value="10" selected>10</option>
                      <option value="15">15</option>
                      <option value="20">20</option>
                   </select>
@@ -73,7 +73,7 @@ export default function ListItem(props) {
          <div class="store-filter clearfix">
             <span class="store-qty">Showing 20-100 products</span>
             <ul class="store-pagination">
-            <li onClick={() => setQuery({ ...query, page: (query.page + 1) })}>
+            <li onClick={() => items.page.current_page!==1? setQuery({ ...query, page: (query.page - 1) }):''}>
                <i class="fa fa-angle-left"></i></li>
                {items.page &&
                   _.range(items.page.current_page - 3,
@@ -87,7 +87,8 @@ export default function ListItem(props) {
                         )
                      })
                }
-               <li onClick={() => setQuery({ ...query, page: (query.page + 1) })}>
+               <li onClick={() => items.page.current_page!== items.page.total_page?
+                   setQuery({ ...query, page: (query.page + 1) }):''}>
                   <i class="fa fa-angle-right"></i></li>
 
             </ul>

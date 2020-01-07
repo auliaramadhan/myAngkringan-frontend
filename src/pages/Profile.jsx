@@ -14,7 +14,7 @@ export default function Profile() {
       headers: { 'Authorization': 'Bearer ' + token },
       data: inputData })
       console.log(result)
-      setDisable(false)
+      setDisable(true)
    }
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm(postDataProfile);
    const token = Cookies.get('token')
@@ -28,6 +28,7 @@ export default function Profile() {
       getdata()
    }, [disable])
 
+   console.log(inputs.date_of_birth&&inputs.date_of_birth.split('T')[0])
   
    return (
       <div className="conatiner">
@@ -62,7 +63,7 @@ export default function Profile() {
                         <label htmlFor="">Date Of Birth</label>
                         <input class="input" type="date" name="date_of_birth" placeholder="date_of_birth" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs&&inputs.date_of_birth}/>
+                        value={inputs.date_of_birth&&inputs.date_of_birth.split('T')[0]}/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">City</label>
