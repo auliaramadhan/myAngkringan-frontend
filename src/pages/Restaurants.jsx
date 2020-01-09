@@ -15,7 +15,7 @@ export default function Restaurants(props) {
                <div class="col-md-6">
                   <div id="product-main-img">
                      <div class="product-preview">
-                        <img src={"http://localhost:8080"+location.state.logo.substr(6)} alt={imgProduct} />
+                        <img src={"http://localhost:8080"+location.state.logo} alt={imgProduct} />
                      </div>
                   </div>
                </div>

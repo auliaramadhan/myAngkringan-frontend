@@ -3,11 +3,11 @@ import axios from 'axios'
 import Cookies from "js-cookie";
 import Axios from "axios";
 
-function useDataFetching(dataSource, query) {
+function useDataFetching(dataSource, queryParams) {
    const [loading, setLoading] = useState(true);
    const [results, setResults] = useState([]);
    const [error, setError] = useState("");
-   query = query ? query : null
+   const [query, setQuery] = useState(queryParams)
 
    useEffect(() => {
       const token = Cookies.get('token')
@@ -24,6 +24,7 @@ function useDataFetching(dataSource, query) {
 
             if (result.data.success) {
                setLoading(false);
+               setError("Data not found")
                setResults(result.data);
             }
          } catch (error) {
@@ -35,12 +36,13 @@ function useDataFetching(dataSource, query) {
       }
 
       fetchData();
-   }, [dataSource]);
+   }, [query, dataSource]);
 
    return {
       error,
       loading,
-      results
+      results,
+      setQuery
    };
 }
 

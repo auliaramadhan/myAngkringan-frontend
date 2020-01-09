@@ -1354,13 +1354,13 @@ textarea.input {
 		border: 1px solid #E4E7ED;
 		-webkit-transition: 0.2s all;
 		transition: 0.2s all;
+
 		&:hover {
 			background-color: $background_color_3;
 			color: $color_3;
+			cursor: pointer;
 		}
-		a {
-			display: block;
-		}
+		&:active{}
 	}
 	li+li {
 		margin-left: 5px;
@@ -2161,3 +2161,4 @@ textarea.input {
 		}
 	}
 }
+

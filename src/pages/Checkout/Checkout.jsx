@@ -6,6 +6,7 @@ import Axios from "axios";
 
 
 export default function Checkout() {
+   const [disable, setDisable] = useState(true)
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm();
    useEffect(() => {
       const token = Cookies.get('token')
@@ -16,10 +17,16 @@ export default function Checkout() {
          setInputs(result.data.data[0])
       }
       getdata()
-   }, [])
-   
-   const [disable, setDisable] = useState(true)
+   }, [disable])
 
+
+
+   const checkoutCart = async (value) => {
+         const token = Cookies.get('token')
+         const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/checkout",
+          headers: { 'Authorization': 'Bearer ' + token },
+         data: inputs })
+   }
 
    return (
       <main className="section">
@@ -45,30 +52,10 @@ export default function Checkout() {
                            value={inputs&&inputs.last_name} />
                      </div>
                      <div class="form-group">
-                        <label htmlFor="">Email</label>
-                        <input class="input" type="email" name="email" placeholder="Email" disabled={disable}
-                           onChange={handleInputChange}
-                           value={inputs&&inputs.email} />
-                     </div>
-                     <div class="form-group">
                         <label htmlFor="">Address</label>
-                        <input class="input" type="text" name="address" placeholder="Address" disabled={disable}
+                        <input class="input" type="textarea" name="address" placeholder="Address" disabled={disable}
                            onChange={handleInputChange}
                            value={inputs&&inputs.address} />
-                     </div>
-                     <div class="form-group">
-                        <label htmlFor="">City</label>
-                        <input class="input" type="text" name="city_of_birth" placeholder="City" disabled={disable}
-                        onChange={handleInputChange}
-                        value={inputs&&inputs.city_of_birth} />
-                     </div>
-                     <div class="form-group">
-                        <label htmlFor="">Country</label>
-                        <input class="input" type="text" name="country" placeholder="Country"  disabled={disable}/>
-                     </div>
-                     <div class="form-group">
-                        <label htmlFor="">ZIP Code</label>
-                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code" disabled={disable} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Telephone</label>
@@ -96,7 +83,7 @@ export default function Checkout() {
                      <h3 class="title">Your Order</h3>
                   </div>
                   
-                  <CartSummary />
+                  <CartSummary setTotal={(total) => setInputs({...inputs, total_harga:total})} />
 
                   <div class="input-checkbox">
                      <input type="checkbox" id="terms" />
@@ -105,7 +92,7 @@ export default function Checkout() {
                         I've read and accept the <a href="#">terms & conditions</a>
                      </label>
                   </div>
-                  <button class="primary-btn order-submit">Place order</button>
+                  <button class="primary-btn order-submit" onClick={checkoutCart}>Place order</button>
                </div>
 
             </div>

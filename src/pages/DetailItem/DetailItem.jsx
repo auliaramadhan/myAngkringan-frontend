@@ -40,7 +40,7 @@ export default function DetailItem(props) {
 				method: 'post',
 				url: "http://127.0.0.1:8080/cart/",
 				headers: { 'Authorization': 'Bearer ' + token },
-				data: { id_item: props.match.params.id, qty: qty }
+				data: { id_item: props.match.params.id, qty: qty , total: qty*item.price }
 			})
 			console.log(result)
 		}
@@ -56,7 +56,6 @@ export default function DetailItem(props) {
 		autoplaySpeed: 2000,
 		pauseOnHover: true,
 		swipeToSlide: true,
-		adaptiveHeight: true,
 		className: 'slides center',
 		centerPadding: "60px",
 		responsive: [
@@ -86,7 +85,7 @@ export default function DetailItem(props) {
 					<div class="col-md-6">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src={"http://localhost:8080".concat(item.image.substr(6))} alt={imgProduct} />
+								<img src={"http://localhost:8080".concat(item.image)} alt={imgProduct} />
 							</div>
 						</div>
 					</div>
@@ -145,7 +144,8 @@ export default function DetailItem(props) {
 
 				{/* review */}
 				<div class="col-md-12">
-					<Review id_item={item.id} />
+					<Review id_item={props.match.params.id}
+					  url_review={"http://127.0.0.1:8080/review/"+props.match.params.id}/>
 				</div>
 
 				<div class="col-md-12">
@@ -156,9 +156,11 @@ export default function DetailItem(props) {
 
 						{/* div*5>h3{hai}*3 */}
 						{showcase.map((v, i) =>
-							<div style={{ margin: '20px' }}>
 								<Product item={v} />
-							</div>)}
+							)}
+							
+							{/* <div class="product slick-slide slick-cloned"
+							style={{ margin: '20px' }}></div> */}
 					</Slider>
 				</div>
 			</div>

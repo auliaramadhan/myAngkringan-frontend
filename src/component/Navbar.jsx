@@ -27,13 +27,21 @@ export default function () {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const logout = () => { Cookies.remove('token'); setisLogin(false) }
+  const logout = async () => { 
+    const res = await Axios(  {method: 'post',
+               url: "http://127.0.0.1:8080/user/logout",
+               headers: { 'Authorization': 'Bearer ' + Cookies.get('token') }})
+    console.log(res)
+    if (res.data.success) {
+      Cookies.remove('token'); setisLogin(false)     
+    }
+  }
   const login = async () => {
     const result = await Axios.post("http://127.0.0.1:8080/user/login", dataLogin)
     const data = result.data
     console.log(data)
     if (data.success) {
-      Cookies.set('token', data.auth, { expires: 24 });
+      Cookies.set('token', data.auth, { expires: 1 });
       setisLogin(true)
     } else window.alert(data.msg);
   };
@@ -78,9 +86,7 @@ export default function () {
                       placeholder="username"
                       className=""
                       onChange={(e) => setDataLogin({ ...dataLogin, username: e.target.value })}
-                      value={dataLogin.username}
-
-                    />
+                      value={dataLogin.username} />
                     <FormControl
                       type="password"
                       placeholder="password"

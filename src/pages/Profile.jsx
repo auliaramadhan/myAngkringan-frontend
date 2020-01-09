@@ -73,11 +73,15 @@ export default function Profile() {
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Country</label>
-                        <input class="input" type="text" name="country" placeholder="Country"  disabled={disable}/>
+                        <input class="input" type="text" name="country" placeholder="Country"  disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs&&inputs.country}/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">ZIP Code</label>
-                        <input class="input" type="text" name="zip-code" placeholder="ZIP Code" disabled={disable} />
+                        <input class="input" type="text" name="zip_code" placeholder="ZIP Code" disabled={disable}
+                        onChange={handleInputChange}
+                        value={inputs&&inputs.zip_code} />
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Telephone</label>

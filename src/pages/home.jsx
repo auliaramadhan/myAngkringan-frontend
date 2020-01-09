@@ -26,7 +26,7 @@ export default function Home(props) {
         {!!resto? <div class="col-sm-10 col-sm-push-1">
           <div class="product" >
             <div class="product-img">
-              <img src={"http://localhost:8080" + resto.logo.substr(6)} alt="" />
+              <img src={"http://localhost:8080" + resto.logo} alt="" />
             </div>
             <div class="product-body">
               <h3 class="product-name">{resto.name}</h3>
@@ -46,7 +46,7 @@ export default function Home(props) {
           <div class="col-md-4 col-sm-6" onClick={() => setRestoran(v)}>
             <div class="product" >
               <div class="product-img">
-                <img src={"http://localhost:8080" + v.logo.substr(6)} alt="" />
+                <img src={"http://localhost:8080" + v.logo} alt="" />
               </div>
               <div class="product-body">
                 <h3 class="product-name">{v.name}</h3>

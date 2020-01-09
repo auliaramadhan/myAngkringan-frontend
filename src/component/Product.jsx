@@ -7,7 +7,7 @@ export default function Product(props) {
 
       <div class="product" >
          <div class="product-img">
-            <img src={"http://localhost:8080".concat(props.item.image.substr(6))} alt="" />
+            <img src={"http://localhost:8080".concat(props.item.image)} alt="" />
             {/* <div class="product-label">
                <span class="sale">-30%</span>
             </div> */}

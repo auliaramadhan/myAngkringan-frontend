@@ -3,11 +3,12 @@ import useDataFetching from '../../service/fetchHook';
 import Cookies from "js-cookie";
 import Axios from "axios";
 
-export default function Review({ id_item }) {
-   const [urlReview, setUrlReview] = useState("http://127.0.0.1:8080/review/" + id_item)
-   const { loading, results, error } = useDataFetching(urlReview);
+export default function Review({ url_review, id_item }) {
+   const [urlReview, setUrlReview] = useState(url_review)
+   const { loading, results, error } = useDataFetching(url_review);
    const [reviews, setReviews] = useState({id_item:id_item})
 
+   // console.log()
    useEffect(() => {
       setReviews(results.data)
    }, [])
@@ -17,12 +18,13 @@ export default function Review({ id_item }) {
          e.preventDefault();
          const token = Cookies.get('token')
          const result = await Axios({
-            method: 'post', url: "http://127.0.0.1:8080/review/" + id_item,
+            // method: 'post', url: "http://127.0.0.1:8080/review/" + id_item,
+            method: 'post', url: "http://127.0.0.1:8080/review/" ,
             headers: { 'Authorization': 'Bearer ' + token },
-            data: reviews
+            data: {...reviews, id_item}
          })
 
-         setUrlReview("http://127.0.0.1:8080/review/" + id_item)
+         // setUrlReview("http://127.0.0.1:8080/review/" + id_item)
          console.log(result)
       }
 
