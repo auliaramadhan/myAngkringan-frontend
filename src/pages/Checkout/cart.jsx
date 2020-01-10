@@ -13,8 +13,16 @@ export default function Cart(props) {
       console.log(results)
 
       setMyCart(results.data)
-      props.setTotal(_.sumBy(myCart, (v)=> v.total))
+      // props.setTotal(_.sumBy(myCart, (v)=> v.total))
    }, [results])
+
+   const [totalHarga, setTotalHarga] = useState(0)
+   useEffect(() => {
+      const total = _.sumBy(myCart, (v)=> v.total)
+      setTotalHarga(total)
+      props.setTotal(total) // coba dulu
+      console.log(totalHarga)
+   }, [myCart])
 
    const setCountCart = (value, index) => {
       const temp = myCart.concat([])
@@ -22,20 +30,7 @@ export default function Cart(props) {
       temp[index].total = temp[index].price * value
       temp[index].changed = true
       setMyCart(temp)
-      props.setTotal(_.sumBy(myCart, (v)=> v.total))
       console.log(myCart)
-      // setState(state => {
-      //    const list = state.list.map((item, j) => {
-      //       if (j === i) {
-      //          return item + 1;
-      //       } else {
-      //          return item;
-      //       }
-      //    });
-      //    return {
-      //       list,
-      //    };
-      // });
    }
 
    const removeFromCart = async (id, index) => {
@@ -51,14 +46,8 @@ export default function Cart(props) {
          window.alert('success')
          temp.splice(index, 1)
          setMyCart(temp)
-         props.setTotal(_.sumBy(myCart, (v)=> v.total))
+         
       } else window.alert(result.data.msg)
-      // setState(state => {
-      //    const list = state.list.filter((item, j) => i !== j);
-      //    return {
-      //      list,
-      //    };
-      //  });
    }
 
    const updateCart = async () => {
@@ -79,19 +68,14 @@ export default function Cart(props) {
       }
       console.log(axiosArray)
   
-      props.setTotal(_.sumBy(myCart, (v)=> v.total))
+      // props.setTotal(_.sumBy(myCart, (v)=> v.total))
 
       await Axios
         .all(axiosArray)
         .then(Axios.spread((...responses) => {
           responses.forEach(res => console.log(res));
-         //  const cart = myCart.concat([])
-         //  cart.map(v => {
-            //  v.changed = false
-            // return v
-         //  })
-         //  setMyCart(cart)
-         
+
+          
         }))
         .catch((err) => {
           console.log('sendMessage catch error', err);
@@ -134,7 +118,7 @@ export default function Cart(props) {
             </label>
          </div>
          {/* <a href="#" class="primary-btn order-submit" onClick={}>Update</a> */}
-         <button class="primary-btn order-submit" onClick={updateCart} 
+         <button class="primary-btn order-submit" onClick={updateCart}
          disabled={myCart&&myCart.every(v => !v.changed)}>Update</button>
       </Fragment>
    )

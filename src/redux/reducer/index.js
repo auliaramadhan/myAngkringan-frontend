@@ -1,9 +1,15 @@
 import {combineReducers} from 'redux'
 
-import employee from "./employee";
+import profile from "./profile";
+import itemList from "./itemList";
+import itemDetail from "./itemDetail";
+import cart from "./cart";
+import restaurants from "./restaurants";
+import review from "./review";
+
 
 const appReducer = combineReducers({
-   employee
+   profile,itemDetail,itemList, cart , restaurants, review
 } )
 
 export default appReducer;

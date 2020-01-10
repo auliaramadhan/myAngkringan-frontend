@@ -39,8 +39,8 @@ export default function Review({ url_review, id_item }) {
                      {results.data && results.data.length > 0 &&
                         results.data.map((v, i) => <li>
                            <div class="review-heading">
-                              <h5 class="name">{v.first_name || "john"} 
-                                 {v.last_name || "snow"} </h5>
+                              <h5 class="name">{v.first_name+" " || "john"} 
+                                 {v.last_name || "snow"}</h5>
                               <p class="date">{v.created_on}</p>
                               <div class="review-rating">
                                  {Array(Math.round(v.rating)).fill(
@@ -70,11 +70,9 @@ export default function Review({ url_review, id_item }) {
             <div class="col-md-5">
                <div id="review-form">
                   <form class="review-form">
-                     <input class="input" type="text" placeholder="Your Name" />
-                     <input class="input" type="email" placeholder="Your Email" />
-                     <textarea class="input" placeholder="Your Review"
+                     <textarea class="input" style={{height:"100%"}}  rows={6} placeholder="Your Review"
                         onChange={(e) => setReviews({ ...reviews, review: e.target.value })}
-                        value={reviews && reviews.review} ></textarea>
+                        value={reviews && reviews.review} required />
                      <div class="input-rating">
                         <span>Your Rating: </span>
                         <div class="stars">

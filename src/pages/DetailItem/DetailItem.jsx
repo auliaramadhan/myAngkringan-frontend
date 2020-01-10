@@ -24,12 +24,7 @@ export default function DetailItem(props) {
 		}
 		getdata()
 	}, [props.match.params.id])
-
-	// const [urlReview, setUrlReview] = useState(props.match.params.id)
-	// useEffect(() => {
-	// 		setUrlReview(props.match.params.id)
-	// }, [props.match.params.id])
-
+	
 	const [qty, setQty] = useState(0)
 	const addCart = async () => {
 		const token = Cookies.get('token')
@@ -95,10 +90,10 @@ export default function DetailItem(props) {
 							<h2 class="product-name">{item.name}</h2>
 							<div>
 								<div class="product-rating">
-									{Array((Math.round(item.rating)) + 1).fill(
+									{Array((Math.round(item.rating))).fill(
 										<i class="fa fa-star"></i>
 									)}
-									{Array(6 - Math.round(item.rating)).fill(
+									{Array(5 - Math.round(item.rating)).fill(
 										<i class="fa fa-star" style={{ color: '#343A40' }}></i>
 									)}
 								</div>

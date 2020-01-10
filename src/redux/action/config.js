@@ -1,1 +1,1 @@
-export const APP_URL = 'https://reqres.in/api/'
+export const APP_URL = ''

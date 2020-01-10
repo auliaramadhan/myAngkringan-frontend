@@ -2,34 +2,41 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { Container } from 'react-bootstrap'
 import Axios from "axios";
 import { Link } from 'react-router-dom';
+import { getRestaurants } from '../redux/action/getData'
+import { connect } from 'react-redux';
 
 
-export default function Home(props) {
+function Home(props) {
   const [restos, setRestos] = useState([])
   useEffect(() => {
-    async function getdata() {
-      const result = await Axios({
-        method: 'get', url: "http://127.0.0.1:8080/restaurant",
-        headers: { 'Authorization': 'Bearer ' }
-      })
-      console.log(result.data.data[0])
-      setRestos(result.data.data)
-    }
-    getdata()
+    // async function getdata() {
+    //   const result = await Axios({
+    //     method: 'get', url: "http://127.0.0.1:8080/restaurant",
+    //     headers: { 'Authorization': 'Bearer ' }
+    //   })
+    //   console.log(result.data.data[0])
+    //   setRestos(result.data.data)
+    // }
+    // getdata()
+    props.dispatch(getRestaurants)
   }, [])
-  const [resto, setRestoran] = useState(restos[0])
+  const [restoran, setRestoran] = useState(restos[0])
+  useEffect(() => {
+    setRestos(props.restaurants.data)
+    setRestoran(props.restaurants.data[0])
+  }, [props.restaurants.data])
 
   return (
     <Container>
       <div class="row justify-content-sm-center">
 
-        {!!resto? <div class="col-sm-10 col-sm-push-1">
+        {!!restoran? <div class="col-sm-10 col-sm-push-1">
           <div class="product" >
             <div class="product-img">
-              <img src={"http://localhost:8080" + resto.logo} alt="" />
+              <img src={"http://localhost:8080" + restoran.logo} alt="" />
             </div>
             <div class="product-body">
-              <h3 class="product-name">{resto.name}</h3>
+              <h3 class="product-name">{restoran.name}</h3>
               <h4 class="product-price"> {resto.description} </h4>
               <button  class="restauran-detail-btn">
                 <Link to={{pathname: '/restaurant/'.concat(resto.id),
@@ -61,7 +68,13 @@ export default function Home(props) {
   )
 }
 
-// export default Home
+const mapStateToProps = state => {
+  return {
+    restaurants: state.restaurants
+  }
+}
+
+export default connect(mapStateToProps)(Home)
 
 
 

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import Axios from "axios";
 
 
-export default function Checkout() {
+export default function Checkout(props) {
    const [disable, setDisable] = useState(true)
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm();
    useEffect(() => {
@@ -26,6 +26,10 @@ export default function Checkout() {
          const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/checkout",
           headers: { 'Authorization': 'Bearer ' + token },
          data: inputs })
+         if (result.data.success) {
+            props.history.push('/store')
+         }
+         
    }
 
    return (
@@ -43,25 +47,25 @@ export default function Checkout() {
                         <label htmlFor="first_name">First Name</label>
                         <input class="input" type="text" name="first_name" placeholder="First Name" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs&&inputs.first_name} />
+                        value={inputs&&inputs.first_name} required/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Last Name</label>
                         <input class="input" type="text" name="last_name" placeholder="Last Name" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs&&inputs.last_name} />
+                           value={inputs&&inputs.last_name} required/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Address</label>
                         <input class="input" type="textarea" name="address" placeholder="Address" disabled={disable}
                            onChange={handleInputChange}
-                           value={inputs&&inputs.address} />
+                           value={inputs&&inputs.address} required/>
                      </div>
                      <div class="form-group">
                         <label htmlFor="">Telephone</label>
                         <input class="input" type="tel" name="phone" placeholder="Telephone" disabled={disable}
                         onChange={handleInputChange}
-                        value={inputs&&inputs.phone}/>
+                        value={inputs&&inputs.phone} required/>
                      </div>
                      </div>
                      <div class="form-group">

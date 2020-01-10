@@ -36,7 +36,8 @@ export default function () {
       Cookies.remove('token'); setisLogin(false)     
     }
   }
-  const login = async () => {
+  const login = async (e) => {
+    e.preventDefault()
     const result = await Axios.post("http://127.0.0.1:8080/user/login", dataLogin)
     const data = result.data
     console.log(data)
@@ -84,20 +85,18 @@ export default function () {
                     <FormControl
                       type="text"
                       placeholder="username"
-                      className=""
+                      required
                       onChange={(e) => setDataLogin({ ...dataLogin, username: e.target.value })}
                       value={dataLogin.username} />
                     <FormControl
                       type="password"
                       placeholder="password"
-                      class=""
+                      required
                       style={{ backgroundClip: 'border-box' }}
                       onChange={(e) => setDataLogin({ ...dataLogin, password: e.target.value })}
-                      value={dataLogin.password}
-
-                    />
+                      value={dataLogin.password} />
                     <InputGroup.Append>
-                      <Button variant="outline-light" onClick={login}>
+                      <Button variant="outline-light" onClick={login} type="submit">
                         <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
                       </Button>
                     </InputGroup.Append>
@@ -130,7 +129,7 @@ export default function () {
                     </div>
                     <input name="username" class="form-control" placeholder="username" type="text" name="username"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.username} />
+                      value={signUp.inputs.username}   required/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -140,34 +139,33 @@ export default function () {
                     </div>
                     <input name="email" class="form-control" placeholder="Email" type="email" name="email"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.email} />
+                      value={signUp.inputs.email} required/>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="fa fa-lock"></i> password</span>
+                      <span class="input-group-text"> <i class="fa fa-lock"></i></span>
                     </div>
                     <input class="form-control" placeholder="password" type="password" name="password"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.password} />
+                      value={signUp.inputs.password} required />
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="fa fa-lock"></i> password again</span>
+                      <span class="input-group-text"> <i class="fa fa-lock"></i></span>
                     </div>
                     <input class="form-control" placeholder="repassword" type="password" name="repassword"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.repassword} />
+                      value={signUp.inputs.repassword} required />
                   </div>
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-block"
                     onClick={signUp.handleSubmit}> Register  </button>
                 </div>
-                <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
               </form>
             </article>
           </div>

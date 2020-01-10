@@ -78,7 +78,7 @@ export default function ListItem(props) {
             </div>
          </div>
 
-         <div class="row">
+         <div class="row justify-content-sm-center">
             {items.data && items.data.map((v, i) =>
                <div class="col-md-4 col-sm-6" key={i}>
                   <Product item={v}
