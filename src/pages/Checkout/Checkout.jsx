@@ -2,35 +2,47 @@ import React, {useEffect, useState} from 'react'
 import CartSummary from './cart'
 import useSignUpForm from '../../service/customHook'
 import Cookies from "js-cookie";
-import Axios from "axios";
+// import Axios from "axios";
+import { connect } from 'react-redux'
+import { getProfile } from '../../redux/action/getData'
+import { postCheckout } from '../../redux/action/postData'
 
 
-export default function Checkout(props) {
+function Checkout(props) {
    const [disable, setDisable] = useState(true)
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm();
    useEffect(() => {
       const token = Cookies.get('token')
-      async function getdata() {
-         const result = await Axios({ method: 'get', url: "http://127.0.0.1:8080/profile",
-          headers: { 'Authorization': 'Bearer ' + token } })
-         console.log(result.data.data)
-         setInputs(result.data.data[0])
+      props.dispatch(getProfile(token))
+   }, [])
+   useEffect(() => {
+      setInputs(props.profile.data)
+   }, [setInputs, props.profile.data, disable])
+
+
+   const checkoutCart = async () => {
+      // e.preventDefault()
+      console.log(inputs.total_harga)
+      if (!inputs.total_harga) {
+         return alert('please fill you cart first')
       }
-      getdata()
-   }, [disable])
+      // const token = Cookies.get('token')
+      // await props.dispatch(postCheckout(token, inputs))
+      //    props.history.push('/store')
+      // if (props.checkout.status.success) {
+      //    props.history.push('/store')
+      // } 
 
-
-
-   const checkoutCart = async (value) => {
-         const token = Cookies.get('token')
-         const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/checkout",
-          headers: { 'Authorization': 'Bearer ' + token },
-         data: inputs })
-         if (result.data.success) {
-            props.history.push('/store')
-         }
-         
    }
+   // async (value) => {
+   //       const token = Cookies.get('token')
+   //       const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/checkout",
+   //        headers: { 'Authorization': 'Bearer ' + token },
+   //       data: inputs })
+   //       if (result.data.success) {
+   //          props.history.push('/store')
+   //       } 
+   // }
 
    return (
       <main className="section">
@@ -79,30 +91,21 @@ export default function Checkout(props) {
                         </div>
                      </div>
                   </div>
-   
-   
-
-               <div class="col-md-8 order-details">
-                  <div class="section-title text-center">
-                     <h3 class="title">Your Order</h3>
-                  </div>
                   
-                  <CartSummary setTotal={(total) => setInputs({...inputs, total_harga:total})} />
-
-                  <div class="input-checkbox">
-                     <input type="checkbox" id="terms" />
-                     <label for="terms">
-                        <span></span>
-                        I've read and accept the <a href="#">terms & conditions</a>
-                     </label>
-                  </div>
+                  <CartSummary setTotal={(total) => setInputs({...inputs, total_harga:total})}
+                   checkoutCart={checkoutCart}/>
+                  
                   <button class="primary-btn order-submit" onClick={checkoutCart}>Place order</button>
-               </div>
-
             </div>
-   
          </div>
-     
       </main>
   )
 }
+const mapStateToProps = state => {
+	return {
+      profile: state.profile,
+      checkout: state.checkout
+	}
+}
+
+export default connect(mapStateToProps)(Checkout)

@@ -1,5 +1,5 @@
 const initialState = {
-   data: []
+   data: {}
    , idLoading: false
    , isError: false
    ,isSuccess: true
@@ -12,18 +12,18 @@ const itemList = (state = initialState, action) => {
             ...state, isLoading: true
          }
          
-      case 'GET_ITEM_LIST_PENDING_REJECTED':
+      case 'GET_ITEM_LIST_REJECTED':
          return {
             ...state, isLoading: false, isError: true
          }
          
       case 'GET_ITEM_LIST_FULFILLED':
          return {
-            data: action.payload.data.data
+            ...state,
+            data: action.payload.data
             , isLoading: false, isError: false
          }
          
-
       default:
          return state;
          

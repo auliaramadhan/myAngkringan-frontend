@@ -2162,3 +2162,13 @@ textarea.input {
 	}
 }
 
+button[disabled] {
+	&.update-cart{
+		transform: scaleX(0)
+	}
+	background-color: rgba(85, 14, 23, 0.774);
+	&:hover{
+		background-color: rgba(85, 14, 23, 0.774);
+	}
+}
+

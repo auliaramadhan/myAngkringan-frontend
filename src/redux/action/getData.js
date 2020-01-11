@@ -39,6 +39,17 @@ export const getProfile = (token) => {
    }
 }
 
+export const getCheckout = (token) => {
+   return {
+      type: 'GET_CHECKOUT',
+      payload: axios({
+         method: 'get',
+         url: `${url}/checkout`,
+         headers: { 'Authorization': 'Bearer ' + token }
+      })
+   }
+}
+
 export const getCart = (token) => {
    return {
       type: 'GET_CART',
@@ -52,7 +63,7 @@ export const getCart = (token) => {
 
 export const getReview = (id_item) => {
    return {
-      type: 'GET_CART',
+      type: 'GET_REVIEW',
       payload: axios({
          method: 'get',
          url: `${url}/review/${id_item}`,
@@ -61,9 +72,9 @@ export const getReview = (id_item) => {
    }
 }
 
+
 export const getRestaurants = () => {
    return {
-
       type: 'GET_RESTAURANTS',
       payload: axios({
          method: 'get',

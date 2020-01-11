@@ -12,13 +12,14 @@ const restaurants = (state = initialState, action) => {
            ...state, isLoading: true
         }
         
-     case 'GET_RESTAURANTS_PENDING_REJECTED':
+     case 'GET_RESTAURANTS_REJECTED':
         return {
            ...state, isLoading: false, isError: true
         }
         
      case 'GET_RESTAURANTS_FULFILLED':
         return {
+           ...state,
            data: action.payload.data.data
            , isLoading: false, isError: false
         }

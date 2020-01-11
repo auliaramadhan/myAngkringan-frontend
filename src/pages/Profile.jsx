@@ -2,30 +2,39 @@ import React, { useState, useEffect } from 'react'
 import useSignUpForm from '../service/customHook'
 import Cookies from "js-cookie";
 import Axios from "axios";
+import { connect } from 'react-redux'
+import { getProfile } from '../redux/action/getData'
+import {  postProfile } from '../redux/action/postData'
 
 
 
-export default function Profile() {
+function Profile(props) {
    const [disable, setDisable] = useState(true)
    const toggleDisable = () => setDisable(!disable)
-   const postDataProfile = async () =>{
-      const inputData = inputs
-      const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
-      headers: { 'Authorization': 'Bearer ' + token },
-      data: inputData })
-      console.log(result)
+   const postDataProfile = () =>{
+      const token = Cookies.get('token')
+      props.dispatch(postProfile(token, inputs))
+      // const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
+      // headers: { 'Authorization': 'Bearer ' + token },
+      // data: inputData })
+      // console.log(result)
       setDisable(true)
    }
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm(postDataProfile);
-   const token = Cookies.get('token')
+   useEffect(() => { //jadi tanda tanya
+      setInputs(props.profile.data)
+   }, [setInputs, props.profile.data, disable])
+
    useEffect(() => {
-      async function getdata() {
-         const result = await Axios({ method: 'get', url: "http://127.0.0.1:8080/profile",
-          headers: { 'Authorization': 'Bearer ' + token } })
-         console.log(result.data.data)
-         setInputs(result.data.data[0])
-      }
-      getdata()
+      const token = Cookies.get('token')
+      props.dispatch(getProfile(token))
+      // async function getdata() {
+      //    const result = await Axios({ method: 'get', url: "http://127.0.0.1:8080/profile",
+      //     headers: { 'Authorization': 'Bearer ' + token } })
+      //    console.log(result.data.data)
+      //    setInputs(result.data.data[0])
+      // }
+      // getdata()
    }, [disable])
 
    console.log(inputs.date_of_birth&&inputs.date_of_birth.split('T')[0])
@@ -89,18 +98,20 @@ export default function Profile() {
                         onChange={handleInputChange}
                         value={inputs&&inputs.phone} required />
                      </div>
-                     <a href="#" class="primary-btn order-submit" onClick={handleSubmit}
-                     style={{margin:'0 auto'}} >Save</a>
+                     <button class="primary-btn order-submit" onClick={handleSubmit}
+                     style={{margin:'0 auto'}} >Save</button>
                   </form>
                </div>
-               {/* 
-               <div class="order-notes">
-                  <textarea class="input" placeholder="Order Notes"></textarea>
-               </div> */}
-
             </div>
          </div>
       </div>
 
    )
 }
+const mapStateToProps = state => {
+	return {
+      profile: state.profile,
+	}
+}
+
+export default connect(mapStateToProps)(Profile)

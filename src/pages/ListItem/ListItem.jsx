@@ -1,29 +1,18 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Product from '../../component/Product'
-import Cookies from "js-cookie";
 import Axios from "axios";
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { getItems } from '../../redux/action/getData'
 
-export default function ListItem(props) {
+
+function ListItem(props) {
    const [query, setQuery] = useState({})
    useEffect(() => {
       setQuery({ byRestaurant: props.byrestaurant, page: 1 })
    }, [])
-   const [items, setItems] = useState([])
    useEffect(() => {
-      const token = Cookies.get('token')
-      async function getdata() {
-         const result = await Axios({
-            method: 'get',
-            url: "http://127.0.0.1:8080/item",
-            params: query
-         })
-         console.log(result.data)
-         setItems(result.data)
-         console.log(items)
-      }
-      getdata()
+      props.dispatch(getItems(query))
    }, [query])
 
    const [category, setCategory] = useState({})
@@ -63,6 +52,15 @@ export default function ListItem(props) {
                </label>
 
                <label>
+                  Sort By:
+							<select class="input-select" onChange={(e) => setQuery({ ...query, sort: e.target.value })}>
+                     <option value={null} selected>Restaurant</option>
+                     <option value="name">Name</option>
+                     <option value="price">Price</option>
+                     <option value="rating">rating</option>
+                  </select>
+               </label>
+               <label>
                   Show:
 							<select class="input-select" onChange={(e) => setQuery({ ...query, limit: e.target.value })}>
                      <option value="5">5</option>
@@ -79,7 +77,8 @@ export default function ListItem(props) {
          </div>
 
          <div class="row justify-content-sm-center">
-            {items.data && items.data.map((v, i) =>
+            { !props.items.isLoading && props.items.data.data
+             && props.items.data.data.map((v, i) =>
                <div class="col-md-4 col-sm-6" key={i}>
                   <Product item={v}
                      norestauran={props.byRestaurant ? false : true} />
@@ -89,7 +88,7 @@ export default function ListItem(props) {
 
 
          <div class="store-filter clearfix">
-            {items.page && <Pagination {...items.page} setPage={setPage} />}
+            {props.items.data.page && <Pagination {...props.items.data.page} setPage={setPage} />}
          </div>
 
       </div >
@@ -125,29 +124,16 @@ function Pagination(props) {
 
             </ul>
          </div>
-
-                     {/* <span class="store-qty">Showing 
-            {items.page&&items.page.limit}-{items.page&&items.page.total_data}
-             products</span>
-            <ul class="store-pagination">
-            <li onClick={() => items.page.current_page!==1? setQuery({ ...query, page: (query.page - 1) }):''}>
-               <i class="fa fa-angle-left"></i></li>
-               {items.page &&
-                  _.range(items.page.current_page - 3,
-                     items.page.current_page + 3).filter(i => 0 < i )
-                     .filter(i => i<= items.page.total_page)
-                     .map((v, i) => {
-                        if (v === items.page.current_page) {
-                           return (<li class="active">{v}</li>)
-                        } else return (
-                           <li onClick={() => setQuery({ ...query, page: v })}>{v}</li>
-                        )
-                     })
-               }
-               <li onClick={() => items.page.current_page!== items.page.total_page?
-                   setQuery({ ...query, page: (query.page + 1) }):''}>
-                  <i class="fa fa-angle-right"></i></li>
-            </ul> */}
       </Fragment>
    )
 }
+
+
+const mapStateToProps = state => {
+   return {
+     items: state.itemList
+   }
+ }
+ 
+ export default connect(mapStateToProps)(ListItem)
+ 

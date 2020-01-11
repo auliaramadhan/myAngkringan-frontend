@@ -1,47 +1,48 @@
 const initialState = {
-   data: [],
+   data: {},
    status: {}
   , idLoading: false
   , isError: false
   ,isSuccess: true
 }
 
-const review = (state = initialState, action) => {
+const checkout = (state = initialState, action) => {
   switch (action.type) {
-     case 'POST_REVIEW_PENDING':
+     case 'POST_CHECKOUT_PENDING':
         return {
            ...state, isLoading: true
         }
-     case 'POST_REVIEW_REJECTED':
-        return {
-           ...state, isLoading: false, isError: true
-        }
-     case 'POST_REVIEW_FULFILLED':
-        return {
-           ...state,
-           status: action.payload.data
-           , isLoading: false, isError: false
-        }
-     case 'GET_REVIEW_PENDING':
-        return {
-           ...state, isLoading: true
-        }
-        
-     case 'GET_REVIEW_REJECTED':
+     case 'POST_CHECKOUT_REJECTED':
         return {
            ...state, isLoading: false, isError: true
         }
         
-     case 'GET_REVIEW_FULFILLED':
+     case 'POST_CHECKOUT_FULFILLED':
         return {
            ...state,
-           data: action.payload.data.data
+           status: action.payload.data.data
            , isLoading: false, isError: false
         }
+     case 'GET_CHECKOUT_PENDING':
+        return {
+           ...state, isLoading: true
+        }
+     case 'GET_CHECKOUT_REJECTED':
+        return {
+           ...state, isLoading: false, isError: true
+        }
+        
+     case 'GET_CHECKOUT_FULFILLED':
+        return {
+           ...state,
+           data: action.payload.data.data&&action.payload.data.data[0]
+           , isLoading: false, isError: false
+        }
+        
      default:
         return state;
         
   }
 }
 
-export default review 
+export default checkout
