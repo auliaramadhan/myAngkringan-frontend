@@ -57,10 +57,10 @@ export const postCheckout = (token, data) => {
 
 export const postProfile = (token, data) => {
    return {
-      type: 'POST_REVIEW',
+      type: 'POST_PROFILE',
       payload: axios({
          method: 'post',
-         url: `${url}/review`,
+         url: `${url}/profile`,
          data,
          headers: { 'Authorization': 'Bearer ' + token }
       })

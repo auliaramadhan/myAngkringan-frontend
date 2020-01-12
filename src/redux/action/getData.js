@@ -50,6 +50,17 @@ export const getCheckout = (token) => {
    }
 }
 
+export const getDetailCheckout = (token,id) => {
+   return {
+      type: 'GET_DETAILCHECKOUT',
+      payload: axios({
+         method: 'get',
+         url: `${url}/checkout/detail/${id}`,
+         headers: { 'Authorization': 'Bearer ' + token }
+      })
+   }
+}
+
 export const getCart = (token) => {
    return {
       type: 'GET_CART',

@@ -14,6 +14,7 @@ import ContactUs from "./pages/ContactUs";
 import Navbar from "./component/Navbar"; 
 import Footer from "./component/Footer"; 
 import Restaurants from './pages/Restaurants';
+import Purchased from './pages/Purchased';
 
 
 
@@ -35,6 +36,7 @@ class App extends Component {
           <Route path='/store' component={ListItem} exact/>
           <Route path='/restaurant/:id' component={Restaurants} exact/>
           <Route path='/profile' component={Profile} exact/>
+          <Route path='/history' component={Purchased} exact/>
         </Switch>
         <Footer/>
       </Router>

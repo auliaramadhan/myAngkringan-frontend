@@ -7,10 +7,11 @@ import cart from "./cart";
 import restaurants from "./restaurants";
 import review from "./review";
 import checkout from "./checkout";
+import detailCheckout from "./detailCheckout";
 
 
 const appReducer = combineReducers({
-   profile,itemDetail,itemList, cart , restaurants, review, checkout
+   profile,itemDetail,itemList, cart , restaurants, review, checkout, detailCheckout
 } )
 
 export default appReducer;

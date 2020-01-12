@@ -29,7 +29,7 @@ const profile = (state = initialState, action) => {
          }
       case 'GET_PROFILE_REJECTED':
          return {
-            ...state, isLoading: false, isError: true
+            ...state, isksLoading: false, isError: true
          }
          
       case 'GET_PROFILE_FULFILLED':

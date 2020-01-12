@@ -13,9 +13,11 @@ import {
 import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Axios from "axios";
+import _ from 'lodash'
 import Modal from "./Modal";
 import { connect } from 'react-redux'
 import useSignUpForm from "../service/customHook";
+import {getCart} from '../redux/action/getData'
 
 function NavHeader(props) {
 
@@ -27,6 +29,10 @@ function NavHeader(props) {
   }, [])
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    props.dispatch(getCart(Cookies.get('token')))
+  }, [props.cart.status, props.checkout.status])
 
   const logout = async () => {
     const res = await Axios({
@@ -111,23 +117,28 @@ function NavHeader(props) {
                   <NavDropdown title={<Fragment>
                 <i class="fa fa-shopping-cart"></i>
                 <span>Your Cart</span>
-                <div class="qty">3</div>
+                <div class="qty">{props.cart.data && props.cart.data.length}</div>
               </Fragment>
               } id="basic-nav-dropdown">
                 <div class="cart-dropdown">
                   <div class="cart-list">
                     {props.cart.data && props.cart.data.map(v =>
                     <div class="product-widget">
+                      <div class="product-img">
+													<img src={"http://localhost:8080".concat(v.image)} alt="" />
+												</div>
                       <div class="product-body">
-                        <h3 class="product-name"><a href="#">{v.name}</a></h3>
+                        <h3 class="product-name">
+                          <Link to={'/detail/' + v.id_item} >{v.name}</Link></h3>
                     <h4 class="product-price"><span class="qty">{v.qty}x</span>{v.total}</h4></div>
-                      <button class="delete"><i class="fa fa-close"></i></button>
+                      <button class="delete"><i class="fas fa-trash"></i></button>
                     </div>
                     )}
                   </div>
-                  <div class="cart-summary"><small>3 Item(s) selected</small>
-                    <h5>SUBTOTAL: $2940.00</h5></div>
-                  <div class="cart-btns"><a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a></div>
+                  <div class="cart-summary"><small>
+                  {props.cart.data && props.cart.data.length} Item(s) selected</small>
+                    <h5>SUBTOTAL: {_.sumBy(props.cart.data, v => v.total) || 0} </h5></div>
+                  <div class="cart-btns"><Link to="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></Link></div>
                 </div>
               </NavDropdown>
                 <Link class="nav-link" to='/profile'>
@@ -201,7 +212,8 @@ function NavHeader(props) {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart
+    cart: state.cart,
+    checkout: state.checkout
   }
 }
 

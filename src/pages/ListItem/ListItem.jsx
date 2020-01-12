@@ -53,7 +53,7 @@ function ListItem(props) {
 
                <label>
                   Sort By:
-							<select class="input-select" onChange={(e) => setQuery({ ...query, sort: e.target.value })}>
+							<select class="input-select" onChange={(e) => setQuery({ ...query, order: e.target.value })}>
                      <option value={null} selected>Restaurant</option>
                      <option value="name">Name</option>
                      <option value="price">Price</option>

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 // import Axios from "axios";
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import { getProfile } from '../../redux/action/getData'
+import { getProfile, getCart } from '../../redux/action/getData'
 import { postCheckout } from '../../redux/action/postData'
 
 
@@ -29,9 +29,11 @@ function Checkout(props) {
          return alert('please fill you cart first')
       }
       const token = Cookies.get('token')
+      // props.dispatch(postCheckout(token, inputs))
       await props.dispatch(postCheckout(token, inputs))
-         props.history.push('/store')
+         // props.history.push('/store')
       if (props.checkout.status.success) {
+         props.dispatch(getCart(token))
          props.history.push('/store')
       } 
 

@@ -930,6 +930,7 @@ textarea.input {
 		position: relative;
 		text-align: center;
 		>img {
+			margin: 0 auto;
 			width: 70%;
 		}
 		.product-label {
@@ -2168,8 +2169,8 @@ button[disabled] {
 
 nav .dropdown-toggle>.qty {
 	position: absolute;
-	right: 15px;
-	top: -10px;
+	left: -12px;
+	top: 0px;
 	width: 20px;
 	height: 20px;
 	line-height: 20px;
@@ -2178,4 +2179,16 @@ nav .dropdown-toggle>.qty {
 	font-size: 10px;
 	color: $color_4;
 	background-color: $background_color_1;
+}
+
+.slick-track>div>div{
+	margin: 0 10px;
+}
+.slick-arrow{
+	width: 30px;
+	height: 30px;
+	&::before{
+
+		font-size: 30px;
+	}
 }

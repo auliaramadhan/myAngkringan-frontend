@@ -15,10 +15,10 @@ function DetailItem(props) {
 	// const item = props.location.state
 	const [item, setItem] = useState({})
 	const [showcase, setShowcase] = useState([])
-	useEffect(() => { props.dispatch(getItemDetail(props.match.params.id));}, [props.match.params.id])
+	useEffect(() => { props.dispatch(getItemDetail(props.match.params.id)); }, [props.match.params.id])
 	useEffect(() => {
 		setShowcase(props.itemDetail.data.showcase);
-		props.location.state? setItem(props.location.state):setItem(props.itemDetail.data.data[0]);
+		props.location.state ? setItem(props.location.state) : setItem(props.itemDetail.data.data[0]);
 	}, [props.itemDetail])
 
 	const [qty, setQty] = useState(0)
@@ -33,6 +33,8 @@ function DetailItem(props) {
 			// 	headers: { 'Authorization': 'Bearer ' + token },
 			// data: { id_item: props.match.params.id, qty: qty, total: qty * item.price }
 			// })
+
+			// await props.dispatch(postCart(token,
 			await props.dispatch(postCart(token,
 				{ id_item: props.match.params.id, qty: qty, total: qty * item.price }))
 			console.log(props.cart.status)
@@ -90,10 +92,10 @@ function DetailItem(props) {
 								<h2 class="product-name">{item.name}</h2>
 								<div>
 									<div class="product-rating">
-										{item.rating && Array(Math.round(item.rating)).fill(
+										{Array(Math.round(item.rating || 0)).fill(
 											<i class="fa fa-star"></i>
 										)}
-										{item.rating &&Array(5 - Math.round(item.rating)).fill(
+										{Array(5 - Math.round(item.rating || 0)).fill(
 											<i class="fa fa-star" style={{ color: '#343A40' }}></i>
 										)}
 									</div>
@@ -151,16 +153,22 @@ function DetailItem(props) {
 					<Slider {...settings}>
 
 						{/* div*5>h3{hai}*3 */}
-						{showcase.map((v, i) =>
+						{showcase.length > 2 && showcase.map((v, i) =>
 							<Product item={v} norestaurant={true} />
 						)}
-
-						{/* <div class="product slick-slide slick-cloned"
-							style={{ margin: '20px' }}></div> */}
 					</Slider>
+
+					{showcase.length <= 2 &&
+						<div class="row justify-content-sm-center">
+							{showcase.map((v, i) =>
+								<div class="col-md-4 col-sm-6" key={i}>
+									<Product item={v} norestaurant={true} />
+								</div>)}
+						</div>}
+
 				</div>
 			</div>
-			
+
 		</div>
 	)
 }
@@ -168,7 +176,7 @@ function DetailItem(props) {
 const mapStateToProps = state => {
 	return {
 		itemDetail: state.itemDetail,
-		cart : state.cart
+		cart: state.cart
 	}
 }
 

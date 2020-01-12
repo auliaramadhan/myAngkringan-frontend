@@ -11,7 +11,7 @@ import { deleteCart } from '../../redux/action/deleteData'
 function Cart(props) {
    const [myCart, setMyCart] = useState([])
    useEffect(() => {
-      props.dispatch(getCart(cookies.get('token'))) 
+      // props.dispatch(getCart(cookies.get('token'))) 
    }, [])
    useEffect(() => {
       setMyCart(props.cart.data)
@@ -34,7 +34,8 @@ function Cart(props) {
 
    const removeFromCart = async (id, index) => {
       const temp = myCart.concat([])
-      await props.dispatch(deleteCart(cookies.get('token'),id))
+      // await props.dispatch(deleteCart(cookies.get('token'),id))
+      props.dispatch(deleteCart(cookies.get('token'),id))
       console.log(props.cart.status)
       if (props.cart.status.success) {
          window.alert('success')

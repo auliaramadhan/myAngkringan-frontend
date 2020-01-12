@@ -8,31 +8,16 @@ const initialState = {
 
 const checkout = (state = initialState, action) => {
   switch (action.type) {
-     case 'POST_CHECKOUT_PENDING':
+     case 'GET_DETAILCHECKOUT_PENDING':
         return {
            ...state, isLoading: true
         }
-     case 'POST_CHECKOUT_REJECTED':
+     case 'GET_DETAILCHECKOUT_REJECTED':
         return {
            ...state, isLoading: false, isError: true
         }
         
-     case 'POST_CHECKOUT_FULFILLED':
-        return {
-           ...state,
-           status: action.payload.data
-           , isLoading: false, isError: false
-        }
-     case 'GET_CHECKOUT_PENDING':
-        return {
-           ...state, isLoading: true
-        }
-     case 'GET_CHECKOUT_REJECTED':
-        return {
-           ...state, isLoading: false, isError: true
-        }
-        
-     case 'GET_CHECKOUT_FULFILLED':
+     case 'GET_DETAILCHECKOUT_FULFILLED':
         return {
            ...state,
            data: action.payload.data.data&&action.payload.data.data
