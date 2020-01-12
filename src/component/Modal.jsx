@@ -6,7 +6,7 @@ export default function(props) {
    return (
       <Modal show={props.show} onHide={props.hide}>
          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>{props.title}</Modal.Title>
          </Modal.Header>
          <Modal.Body>
             {props.children}

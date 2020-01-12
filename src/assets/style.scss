@@ -725,7 +725,7 @@ textarea.input {
 		margin: 0px -17px -17px;
 		>a {
 			display: inline-block;
-			width: 100%;
+			width: 50%;
 			padding: 12px;
 			background-color: $background_color_1;
 			color: $color_4;
@@ -733,6 +733,9 @@ textarea.input {
 			font-weight: 700;
 			-webkit-transition: 0.2s all;
 			transition: 0.2s all;
+			&:first-child{
+				background-color: $color_1;
+			}
 			&:hover {
 				opacity: 0.9;
 			}
@@ -1771,6 +1774,7 @@ textarea.input {
 }
 .order-summary {
 	margin: 15px 0px;
+	padding: 10px;
 	.order-col {
 		display: table;
 		width: 100%;

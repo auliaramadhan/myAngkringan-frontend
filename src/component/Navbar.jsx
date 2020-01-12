@@ -18,6 +18,7 @@ import Modal from "./Modal";
 import { connect } from 'react-redux'
 import useSignUpForm from "../service/customHook";
 import {getCart} from '../redux/action/getData'
+import { deleteCart } from "../redux/action/deleteData";
 
 function NavHeader(props) {
 
@@ -131,19 +132,21 @@ function NavHeader(props) {
                         <h3 class="product-name">
                           <Link to={'/detail/' + v.id_item} >{v.name}</Link></h3>
                     <h4 class="product-price"><span class="qty">{v.qty}x</span>{v.total}</h4></div>
-                      <button class="delete"><i class="fas fa-trash"></i></button>
+                      <button class="delete"
+                      onClick={() => props.dispatch(deleteCart(Cookies.get('token'),v.id))}  ><i class="fa fa-close"></i></button>
                     </div>
                     )}
                   </div>
                   <div class="cart-summary"><small>
                   {props.cart.data && props.cart.data.length} Item(s) selected</small>
-                    <h5>SUBTOTAL: {_.sumBy(props.cart.data, v => v.total) || 0} </h5></div>
-                  <div class="cart-btns"><Link to="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></Link></div>
+                    <h5>SUBTOTAL: {_.sumBy(props.cart.data || [], v => v.total) || 0} </h5></div>
+                  <div class="cart-btns">
+                    <Link to="/history">History</Link>
+                    <Link to="/checkout">Checkout  <i class="fa fa-arrow-circle-right"></i></Link></div>
                 </div>
               </NavDropdown>
                 <Link class="nav-link" to='/profile'>
                   <i class="fas fa-user" aria-hidden="true"></i> Profile</Link>
-
                 <Button onClick={logout}> Logout</Button>
               </Nav>
             }
