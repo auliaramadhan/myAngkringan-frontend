@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {All, Guest} from './service/auth';
 import Home1 from "./pages/Front1";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
+// import './'home
+import home from "./pages/home";
 import Item from "./pages/Items";
 import Checkout from "./pages/Checkout/Checkout";
 import ListItem from "./pages/ListItem/ListItem";
@@ -21,7 +23,7 @@ class App extends Component {
       <Router>
         <Navbar/>
         <Switch>
-          <Route path='/' component={Home} exact />
+          <Route path='/' component={home} exact />
           <Route path='/homee' component={Home1} exact />
           <Route path='/item' component={Item} exact />
           <Route path='/detail/:id' component={DetailItem} exact />

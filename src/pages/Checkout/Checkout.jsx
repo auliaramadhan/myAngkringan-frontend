@@ -3,6 +3,7 @@ import CartSummary from './cart'
 import useSignUpForm from '../../service/customHook'
 import Cookies from "js-cookie";
 // import Axios from "axios";
+import _ from 'lodash'
 import { connect } from 'react-redux'
 import { getProfile } from '../../redux/action/getData'
 import { postCheckout } from '../../redux/action/postData'
@@ -22,16 +23,17 @@ function Checkout(props) {
 
    const checkoutCart = async () => {
       // e.preventDefault()
+      inputs.total_harga = _.sumBy(props.cart.data, (v) => v.total)
       console.log(inputs.total_harga)
       if (!inputs.total_harga) {
          return alert('please fill you cart first')
       }
-      // const token = Cookies.get('token')
-      // await props.dispatch(postCheckout(token, inputs))
-      //    props.history.push('/store')
-      // if (props.checkout.status.success) {
-      //    props.history.push('/store')
-      // } 
+      const token = Cookies.get('token')
+      await props.dispatch(postCheckout(token, inputs))
+         props.history.push('/store')
+      if (props.checkout.status.success) {
+         props.history.push('/store')
+      } 
 
    }
    // async (value) => {
@@ -92,10 +94,9 @@ function Checkout(props) {
                      </div>
                   </div>
                   
-                  <CartSummary setTotal={(total) => setInputs({...inputs, total_harga:total})}
-                   checkoutCart={checkoutCart}/>
+                  <CartSummary checkoutCart={checkoutCart}/>
                   
-                  <button class="primary-btn order-submit" onClick={checkoutCart}>Place order</button>
+                  {/* <button class="primary-btn order-submit" onClick={checkoutCart}>Place order</button> */}
             </div>
          </div>
       </main>
@@ -104,7 +105,8 @@ function Checkout(props) {
 const mapStateToProps = state => {
 	return {
       profile: state.profile,
-      checkout: state.checkout
+      checkout: state.checkout,
+      cart: state.cart
 	}
 }
 

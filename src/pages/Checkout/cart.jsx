@@ -21,13 +21,8 @@ function Cart(props) {
    useEffect(() => {
       const total = _.sumBy(myCart, (v) => v.total)
       setTotalHarga(total)
-      props.setTotal(total) // coba dulu
    }, [myCart])
    
-   // useEffect(() => {
-   //    console.log(totalHarga)
-   //    props.setTotal(totalHarga) // coba dulu
-   // }, [totalHarga])
 
    const setCountCart = (value, index) => {
       const temp = myCart.concat([])
@@ -77,13 +72,6 @@ function Cart(props) {
          props.dispatch(getCart(cookies.get('token')))
    }
 
-   // function sendcheckout(){
-   //    console.log(totalHarga)
-   //    const kirimharga = totalHarga
-   //    props.setTotal(500) // coba dulu
-   //    props.checkoutCart()
-   // }
-
    return (
       <Fragment>
          <div class="col-md-8 order-details">
@@ -123,9 +111,9 @@ function Cart(props) {
                <button class="primary-btn order-submit update-cart" onClick={updateCart}
                disabled={myCart && myCart.every(v => !v.changed)}>Update</button>
          </div>
-{/* 
-         <button class="primary-btn order-submit" onClick={sendcheckout}
-         disabled={myCart && myCart.some(v => v.changed)}>Place order</button> */}
+
+         <button class="primary-btn order-submit" onClick={props.checkoutCart}
+         disabled={myCart && myCart.some(v => v.changed)}>Place order</button>
       </Fragment>
    )
 }

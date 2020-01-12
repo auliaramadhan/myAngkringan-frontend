@@ -14,9 +14,10 @@ import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
 import Axios from "axios";
 import Modal from "./Modal";
+import { connect } from 'react-redux'
 import useSignUpForm from "../service/customHook";
 
-export default function () {
+function NavHeader(props) {
 
   const [show, setShow] = useState(false);
   const [isLogin, setisLogin] = useState(false);
@@ -27,13 +28,15 @@ export default function () {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const logout = async () => { 
-    const res = await Axios(  {method: 'post',
-               url: "http://127.0.0.1:8080/user/logout",
-               headers: { 'Authorization': 'Bearer ' + Cookies.get('token') }})
+  const logout = async () => {
+    const res = await Axios({
+      method: 'post',
+      url: "http://127.0.0.1:8080/user/logout",
+      headers: { 'Authorization': 'Bearer ' + Cookies.get('token') }
+    })
     console.log(res)
     if (res.data.success) {
-      Cookies.remove('token'); setisLogin(false)     
+      Cookies.remove('token'); setisLogin(false)
     }
   }
   const login = async (e) => {
@@ -105,10 +108,31 @@ export default function () {
                 <Link class="nav-link" to='#' onClick={handleShow} > Sign up</Link>
               </Nav> :
               <Nav>
-                <Link class="nav-link" to='/checkout' >
-                  <i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart</Link>
+                  <NavDropdown title={<Fragment>
+                <i class="fa fa-shopping-cart"></i>
+                <span>Your Cart</span>
+                <div class="qty">3</div>
+              </Fragment>
+              } id="basic-nav-dropdown">
+                <div class="cart-dropdown">
+                  <div class="cart-list">
+                    {props.cart.data && props.cart.data.map(v =>
+                    <div class="product-widget">
+                      <div class="product-body">
+                        <h3 class="product-name"><a href="#">{v.name}</a></h3>
+                    <h4 class="product-price"><span class="qty">{v.qty}x</span>{v.total}</h4></div>
+                      <button class="delete"><i class="fa fa-close"></i></button>
+                    </div>
+                    )}
+                  </div>
+                  <div class="cart-summary"><small>3 Item(s) selected</small>
+                    <h5>SUBTOTAL: $2940.00</h5></div>
+                  <div class="cart-btns"><a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a></div>
+                </div>
+              </NavDropdown>
                 <Link class="nav-link" to='/profile'>
                   <i class="fas fa-user" aria-hidden="true"></i> Profile</Link>
+
                 <Button onClick={logout}> Logout</Button>
               </Nav>
             }
@@ -129,7 +153,7 @@ export default function () {
                     </div>
                     <input name="username" class="form-control" placeholder="username" type="text" name="username"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.username}   required/>
+                      value={signUp.inputs.username} required />
                   </div>
                 </div>
                 <div class="form-group">
@@ -139,7 +163,7 @@ export default function () {
                     </div>
                     <input name="email" class="form-control" placeholder="Email" type="email" name="email"
                       onChange={signUp.handleInputChange}
-                      value={signUp.inputs.email} required/>
+                      value={signUp.inputs.email} required />
                   </div>
                 </div>
                 <div class="form-group">
@@ -174,3 +198,11 @@ export default function () {
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(NavHeader)

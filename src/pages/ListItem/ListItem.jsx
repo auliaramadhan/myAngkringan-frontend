@@ -102,7 +102,7 @@ function Pagination(props) {
       <Fragment>
          <div class="store-filter clearfix">
             <span class="store-qty">Showing 
-            {props.limit*props.current_page}-{props.total_data}
+            {props.limit*props.current_page}-{props.limit*(props.current_page+1)} Of {props.total_data}
              products</span>
             <ul class="store-pagination">
             {props.current_page!==1&& <li onClick={() => props.setPage(props.current_page - 1)}>
