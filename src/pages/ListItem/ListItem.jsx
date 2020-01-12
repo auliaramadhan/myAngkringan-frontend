@@ -77,6 +77,7 @@ function ListItem(props) {
          </div>
 
          <div class="row justify-content-sm-center">
+         {props.items.isLoading && <div class="lds-ring"><div></div></div> }
             { !props.items.isLoading && props.items.data.data
              && props.items.data.data.map((v, i) =>
                <div class="col-md-4 col-sm-6" key={i}>

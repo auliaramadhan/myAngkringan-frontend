@@ -18,20 +18,6 @@ function Review({ id_item, dispatch, review }) {
       dispatch(postReview(Cookies.get('token') ,{...inputreviews, id_item}))
    }
 
-      // async (e) => {
-      //    e.preventDefault();
-      //    const token = Cookies.get('token')
-      //    const result = await Axios({
-      //       // method: 'post', url: "http://127.0.0.1:8080/review/" + id_item,
-      //       method: 'post', url: "http://127.0.0.1:8080/review/" ,
-      //       headers: { 'Authorization': 'Bearer ' + token },
-      //       data: {...inputreviews, id_item}
-      //    })
-
-      //    // setUrlReview("http://127.0.0.1:8080/review/" + id_item)
-      //    // console.log(result)
-      // }
-
    return (
       <div id="product-tab">
          <div class="row">
@@ -39,6 +25,7 @@ function Review({ id_item, dispatch, review }) {
                <div id="reviews">
                   <ul class="reviews">
                      {/* {results.data && results.data.length > 0 && */}
+                     {review.isLoading && <div class="lds-ring"><div></div></div> }
                      {!review.isLoading && review.data.length > 0 &&
                         review.data.map((v, i) => <li>
                            <div class="review-heading">

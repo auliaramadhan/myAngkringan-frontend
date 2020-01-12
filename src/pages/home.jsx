@@ -21,6 +21,8 @@ function Home(props) {
     <Container>
       <div class="row justify-content-sm-center">
 
+      {props.restaurants.isLoading && <div class="lds-ring"><div></div></div> }
+
         {!!restoran? <div class="col-sm-10 col-sm-push-1">
           <div class="product" >
             <div class="product-img">

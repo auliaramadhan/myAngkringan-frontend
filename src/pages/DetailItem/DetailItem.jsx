@@ -147,6 +147,7 @@ function DetailItem(props) {
 				</div>
 
 				<div class="col-md-12">
+				{props.itemDetail.isLoading && <div class="lds-ring"><div></div></div> }
 					<div class="section-title text-center">
 						<h3 class="title">Related Products</h3>
 					</div>

@@ -119,9 +119,9 @@ function NavHeader(props) {
                 <i class="fa fa-shopping-cart"></i>
                 <span>Your Cart</span>
                 <div class="qty">{props.cart.data && props.cart.data.length}</div>
-              </Fragment>
-              } id="basic-nav-dropdown">
+              </Fragment>} id="basic-nav-dropdown">
                 <div class="cart-dropdown">
+                {props.cart.isLoading && <div class="lds-ring"><div></div></div> }
                   <div class="cart-list">
                     {props.cart.data && props.cart.data.map(v =>
                     <div class="product-widget">
@@ -133,7 +133,7 @@ function NavHeader(props) {
                           <Link to={'/detail/' + v.id_item} >{v.name}</Link></h3>
                     <h4 class="product-price"><span class="qty">{v.qty}x</span>{v.total}</h4></div>
                       <button class="delete"
-                      onClick={() => props.dispatch(deleteCart(Cookies.get('token'),v.id))}  ><i class="fa fa-close"></i></button>
+                      onClick={() => props.dispatch(deleteCart(Cookies.get('token'),v.id))}  ><i class="fa fa-trash"></i></button>
                     </div>
                     )}
                   </div>

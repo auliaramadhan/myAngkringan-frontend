@@ -29,9 +29,10 @@ function Purchased(props) {
       <Fragment>
          <main className="section">
             <div class="container">
-               <div className="row justify-content-sm-center">
-
-                  <div class="col-sm-8">
+               <div className="row justify-content-lg-center">
+				{props.checkout.isLoading && <div class="lds-ring"><div></div></div> }
+                  
+                  <div class="col-lg-8">
                      <Table responsive>
                         <thead>
                            <tr>
@@ -71,6 +72,7 @@ function Purchased(props) {
                <h3 class="title">Your Purchased</h3>
             </div>
             <div class="order-summary">
+            {props.detailCheckout.isLoading && <div class="lds-ring"><div></div></div> }
                <div class="order-col">
                   <div><strong>Qty</strong></div>
                   <div><strong>PRODUCT</strong></div>
