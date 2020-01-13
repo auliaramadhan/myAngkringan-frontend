@@ -98,8 +98,8 @@ function Profile(props) {
                         onChange={handleInputChange}
                         value={inputs&&inputs.phone} required />
                      </div>
-                     <button class="primary-btn order-submit" onClick={handleSubmit}
-                     style={{margin:'0 auto'}} >Save</button>
+                     <button class="primary-btn order-submit update-cart" onClick={handleSubmit}
+                     style={{margin:'0 auto'}} disabled={disable}>Save</button>
                   </form>
                </div>
             </div>

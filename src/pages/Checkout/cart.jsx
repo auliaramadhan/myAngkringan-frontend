@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 import { getCart } from '../../redux/action/getData'
 import { deleteCart } from '../../redux/action/deleteData'
+import { Toast } from 'react-bootstrap';
 
 
 function Cart(props) {
@@ -38,10 +39,16 @@ function Cart(props) {
       props.dispatch(deleteCart(cookies.get('token'),id))
       console.log(props.cart.status)
       if (props.cart.status.success) {
-         window.alert('success')
+         // window.alert('success')
+         settoastmsg('data berhasil dihapus')
+         setShowToast(true)
          temp.splice(index, 1)
          setMyCart(temp)
-      } else window.alert(props.cart.status.msg)
+      } else {
+         settoastmsg('terdapat error pada databse')
+         setShowToast(true)
+      }
+      //  window.alert(props.cart.status.msg)
    }
 
    const updateCart = async () => {
@@ -70,8 +77,15 @@ function Cart(props) {
          .catch((err) => {
             console.log('sendMessage catch error', err);
          });
+
+         settoastmsg('data berhasil diupdate')
+         setShowToast(true)
          props.dispatch(getCart(cookies.get('token')))
    }
+   //toast
+  const [showToast, setShowToast] = useState(false);
+  const [toastmsg, settoastmsg] = useState("")
+  const toggleShowToast = () => setShowToast(!showToast);
 
    return (
       <Fragment>
@@ -115,6 +129,12 @@ function Cart(props) {
 
          <button class="primary-btn order-submit" onClick={props.checkoutCart}
          disabled={myCart && myCart.some(v => v.changed)}>Place order</button>
+<Toast show={showToast} onClose={toggleShowToast}>
+        <Toast.Header>
+            <strong className="mr-auto">Notif</strong>
+          </Toast.Header>
+          <Toast.Body>{toastmsg}</Toast.Body>
+        </Toast>
       </Fragment>
    )
 }

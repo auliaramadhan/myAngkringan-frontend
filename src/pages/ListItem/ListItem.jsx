@@ -61,6 +61,13 @@ function ListItem(props) {
                   </select>
                </label>
                <label>
+                  Sort By:
+							<select class="input-select" onChange={(e) => setQuery({ ...query, asc: e.target.value })}>
+                     <option value={null} selected>ASC</option>
+                     <option value="DESC">DESC</option>
+                  </select>
+               </label>
+               <label>
                   Show:
 							<select class="input-select" onChange={(e) => setQuery({ ...query, limit: e.target.value })}>
                      <option value="5">5</option>
@@ -69,10 +76,10 @@ function ListItem(props) {
                      <option value="20">20</option>
                   </select>
                </label>
-               <ul class="store-grid">
+               {/* <ul class="store-grid">
                   <li class="active"><i class="fa fa-th"></i></li>
                   <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-               </ul>
+               </ul> */}
             </div>
          </div>
 

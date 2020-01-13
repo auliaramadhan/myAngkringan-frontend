@@ -9,6 +9,7 @@ import Axios from "axios";
 import { connect } from 'react-redux'
 import { getItemDetail } from '../../redux/action/getData'
 import { postCart } from '../../redux/action/postData'
+import { Toast } from 'react-bootstrap';
 
 
 function DetailItem(props) {
@@ -25,7 +26,9 @@ function DetailItem(props) {
 	const addCart = async () => {
 		const token = Cookies.get('token')
 		if (!qty) {
-			window.alert('minimal 1 qty')
+			// window.alert('minimal 1 qty')
+			settoastmsg('Minimal jumlah barang 1')
+         setShowToast(true)
 		} else {
 			// const result = await Axios({
 			// 	method: 'post',
@@ -38,8 +41,19 @@ function DetailItem(props) {
 			await props.dispatch(postCart(token,
 				{ id_item: props.match.params.id, qty: qty, total: qty * item.price }))
 			console.log(props.cart.status)
+			if (props.cart.isError) {
+				settoastmsg('terdapat error di database')
+         setShowToast(true)
+		}else if (!props.cart.isError && props.cart.status.success){
+			settoastmsg('barang berhasil ditambahkan ke cart')
+		setShowToast(true)
+
+		}
 		}
 	}
+	const [showToast, setShowToast] = useState(false);
+  const [toastmsg, settoastmsg] = useState("")
+  const toggleShowToast = () => setShowToast(!showToast);
 
 	var settings = {
 		dots: true,
@@ -170,6 +184,12 @@ function DetailItem(props) {
 				</div>
 			</div>
 
+			<Toast show={showToast} onClose={toggleShowToast}>
+      <Toast.Header>
+          <strong className="mr-auto">Notif</strong>
+        </Toast.Header>
+        <Toast.Body>{toastmsg}</Toast.Body>
+      </Toast>
 		</div>
 	)
 }

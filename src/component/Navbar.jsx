@@ -8,7 +8,8 @@ import {
   Button,
   Container,
   InputGroup,
-  NavItem
+  NavItem,
+  Toast
 } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import Cookies from "js-cookie";
@@ -65,7 +66,8 @@ function NavHeader(props) {
         const result = await Axios.post("http://127.0.0.1:8080/user/registrasi", signUp.inputs)
         const data = result.data
         console.log(data)
-        if (data.success) window.alert('Silahkan login')
+        // if (data.success) window.alert('Silahkan login')
+        if (data.success) setShowToast(!showToast)
         else window.alert(data.msg);
       } catch (error) {
         window.alert(error)
@@ -74,7 +76,9 @@ function NavHeader(props) {
   }
   const signUp = useSignUpForm(postDataProfile);
 
-
+  //toast
+  const [showToast, setShowToast] = useState(false);
+  const toggleShowToast = () => setShowToast(!showToast);
 
   return (
     <div>
@@ -208,6 +212,12 @@ function NavHeader(props) {
             </article>
           </div>
         </Modal>
+        <Toast show={showToast} onClose={toggleShowToast}>
+        <Toast.Header>
+            <strong className="mr-auto">Notif</strong>
+          </Toast.Header>
+          <Toast.Body>You can Login Now</Toast.Body>
+        </Toast>
       </Fragment>
     </div>
   )

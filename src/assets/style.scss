@@ -932,10 +932,9 @@ textarea.input {
 	.product-img {
 		position: relative;
 		text-align: center;
-		>img {
-			margin: 0 auto;
-			width: 70%;
-		}
+		// >img {
+		// 	margin: 0 auto;
+		// }
 		.product-label {
 			position: absolute;
 			top: 15px;
@@ -2154,7 +2153,8 @@ textarea.input {
 		color: $color_3;
 		border-color: $border_color_1;
 		padding: 0px 30px 0px 50px;
-		&>a>i {
+		&>a>
+		i {
 			opacity: 1;
 			visibility: visible;
 		}
@@ -2197,6 +2197,33 @@ nav .dropdown-toggle>.qty {
 	}
 }
 
+.toast{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	max-width: 80%;
+	width: 200px;
+	z-index: 999;
+
+}
+
+.product-img{
+	height: 200px;
+	max-height: 100%;
+	img{
+		max-height: 80%;
+	 max-width: 80%;
+	 border-radius: 25%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto
+	}
+}
 
 // --------LOADER-----------------
 
@@ -2209,9 +2236,8 @@ nav .dropdown-toggle>.qty {
 	left: 0;
 	width: 100%;
 	height: 100vh;
-	z-index: 999;
- }
- .lds-ring div {
+	z-index: 1100;
+	div {
 	align-self: center;
 	justify-self: center;
 	box-sizing: border-box;
@@ -2224,16 +2250,17 @@ nav .dropdown-toggle>.qty {
 	border-radius: 50%;
 	animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 	border-color: #fff transparent transparent transparent;
- }
- .lds-ring div:nth-child(1) {
+ 	&:nth-child(1) {
 	animation-delay: -0.45s;
- }
- .lds-ring div:nth-child(2) {
+	 }
+ 	&:nth-child(2) {
 	animation-delay: -0.3s;
- }
- .lds-ring div:nth-child(3) {
+	 }
+ 	&:nth-child(3) {
 	animation-delay: -0.15s;
  }
+}
+}
  @keyframes lds-ring {
 	0% {
 	  transform: rotate(0deg);
@@ -2242,3 +2269,4 @@ nav .dropdown-toggle>.qty {
 	  transform: rotate(360deg);
 	}
  }
+

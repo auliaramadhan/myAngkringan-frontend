@@ -1,24 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import useDataFetching from '../../service/fetchHook';
 import Cookies from "js-cookie";
 import Axios from "axios";
 import { connect } from 'react-redux'
 import { getReview } from '../../redux/action/getData'
 import { postReview } from '../../redux/action/postData'
+import { Toast } from 'react-bootstrap';
 
 function Review({ id_item, dispatch, review }) {
    const [inputreviews, setInputReviews] = useState({})
    useEffect(() => {
       console.log(review.status)
       dispatch(getReview(id_item))
-   }, [review.status, id_item, dispatch])
+      if (review.isError) {
+         settoastmsg('terdapat error')
+         setShowToast(true)
+      }
+   }, [review.isError, review.status, id_item, dispatch])
 
    const submitReview = e => {
       e.preventDefault()
+
       dispatch(postReview(Cookies.get('token') ,{...inputreviews, id_item}))
    }
+   const [showToast, setShowToast] = useState(false);
+  const [toastmsg, settoastmsg] = useState("")
+  const toggleShowToast = () => setShowToast(!showToast);
 
    return (
+      <Fragment>
       <div id="product-tab">
          <div class="row">
             <div class="col-md-8">
@@ -86,7 +96,13 @@ function Review({ id_item, dispatch, review }) {
 
          </div>
       </div>
-
+      <Toast show={showToast} onClose={toggleShowToast}>
+      <Toast.Header>
+          <strong className="mr-auto">Notif</strong>
+        </Toast.Header>
+        <Toast.Body>{toastmsg}</Toast.Body>
+      </Toast>
+      </Fragment>
    )
 }
 const mapStateToProps = state => {

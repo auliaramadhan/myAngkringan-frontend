@@ -11,7 +11,7 @@ import detailCheckout from "./detailCheckout";
 
 
 const appReducer = combineReducers({
-   profile,itemDetail,itemList, cart , restaurants, review, checkout, detailCheckout
+   profile,itemDetail,itemList, cart, restaurants, review, checkout, detailCheckout
 } )
-
+ 
 export default appReducer;
