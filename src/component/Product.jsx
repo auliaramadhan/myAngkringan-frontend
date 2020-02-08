@@ -7,7 +7,14 @@ export default function Product(props) {
 
       <div class="product" >
          <div class="product-img">
-            <img src={"http://localhost:8080".concat(props.item.image)} alt="" />
+            <img src={"http://52.91.248.206:8080".concat(props.item.image)}
+               onError={(e) => (e.target.src !== "https://via.placeholder.com/200")
+                  ? e.target.src = "https://via.placeholder.com/200" : null
+               }
+               alt="" />
+            <div class="product-label">
+               <button class="btn btn-danger" onClick={props.onpress} > <i class="fa fa-shopping-cart"></i> Add</button>
+            </div>
          </div>
          <div class="product-body">
             <p class="product-category"> <Link href="#">{props.item.category}</Link></p>
@@ -20,7 +27,7 @@ export default function Product(props) {
                )}
             </div>
             <Link to={{ pathname: '/detail/' + props.item.id, state: props.item }}>
-               <button class="add-to-cart-btn">
+               <button class="add-to-cart-btn" >
                   <i class="fa fa-eye"></i> See Detail
             </button>
             </Link>

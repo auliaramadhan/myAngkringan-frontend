@@ -14,10 +14,6 @@ function Profile(props) {
    const postDataProfile = () =>{
       const token = Cookies.get('token')
       props.dispatch(postProfile(token, inputs))
-      // const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/profile",
-      // headers: { 'Authorization': 'Bearer ' + token },
-      // data: inputData })
-      // console.log(result)
       setDisable(true)
    }
    const { inputs, handleInputChange, handleSubmit , setInputs} = useSignUpForm(postDataProfile);
@@ -29,7 +25,7 @@ function Profile(props) {
       const token = Cookies.get('token')
       props.dispatch(getProfile(token))
       // async function getdata() {
-      //    const result = await Axios({ method: 'get', url: "http://127.0.0.1:8080/profile",
+      //    const result = await Axios({ method: 'get', url: "http://52.91.248.206:8080/profile",
       //     headers: { 'Authorization': 'Bearer ' + token } })
       //    console.log(result.data.data)
       //    setInputs(result.data.data[0])

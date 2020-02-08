@@ -21,12 +21,12 @@ function Home(props) {
     <Container>
       <div class="row justify-content-sm-center">
 
-      {props.restaurants.isLoading && <div class="lds-ring"><div></div></div> }
+      {props.restaurants.isLoading &&  <div class="lds-ring"><div></div><div></div><div></div></div> }
 
         {!!restoran? <div class="col-sm-10 col-sm-push-1">
           <div class="product" >
             <div class="product-img">
-              <img src={"http://localhost:8080" + restoran.logo} alt="" />
+              <img src={"http://52.91.248.206:8080" + restoran.logo} alt="" />
             </div>
             <div class="product-body">
               <h3 class="product-name">{restoran.name}</h3>
@@ -46,7 +46,7 @@ function Home(props) {
           <div class="col-md-4 col-sm-6" onClick={() => setRestoran(v)}>
             <div class="product" >
               <div class="product-img">
-                <img src={"http://localhost:8080" + v.logo} alt="" />
+                <img src={"http://52.91.248.206:8080" + v.logo} alt="" />
               </div>
               <div class="product-body">
                 <h3 class="product-name">{v.name}</h3>

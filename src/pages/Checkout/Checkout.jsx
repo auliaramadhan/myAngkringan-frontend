@@ -36,17 +36,7 @@ function Checkout(props) {
          props.dispatch(getCart(token))
          props.history.push('/store')
       } 
-
    }
-   // async (value) => {
-   //       const token = Cookies.get('token')
-   //       const result = await Axios({ method: 'post', url: "http://127.0.0.1:8080/checkout",
-   //        headers: { 'Authorization': 'Bearer ' + token },
-   //       data: inputs })
-   //       if (result.data.success) {
-   //          props.history.push('/store')
-   //       } 
-   // }
 
    return (
       <main className="section">

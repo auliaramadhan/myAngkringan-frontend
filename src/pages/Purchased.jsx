@@ -29,8 +29,9 @@ function Purchased(props) {
       <Fragment>
          <main className="section">
             <div class="container">
+            {props.detailCheckout.isLoading &&  <div class="lds-ring"><div></div><div></div><div></div></div> }
                <div className="row justify-content-lg-center">
-				{props.checkout.isLoading && <div class="lds-ring"><div></div></div> }
+				{props.checkout.isLoading &&  <div class="lds-ring"><div></div><div></div><div></div></div> }
                   
                   <div class="col-lg-8">
                      <Table responsive>
@@ -66,13 +67,12 @@ function Purchased(props) {
             </div>
          </main>
 
-         <Modal show={show} hide={handleClose} title="Detail">
-
+         <Modal show={show} hide={handleClose} title={"Detail Purchased" } >
+            
             <div class="section-title text-center">
                <h3 class="title">Your Purchased</h3>
             </div>
             <div class="order-summary">
-            {props.detailCheckout.isLoading && <div class="lds-ring"><div></div></div> }
                <div class="order-col">
                   <div><strong>Qty</strong></div>
                   <div><strong>PRODUCT</strong></div>

@@ -30,14 +30,6 @@ function DetailItem(props) {
 			settoastmsg('Minimal jumlah barang 1')
          setShowToast(true)
 		} else {
-			// const result = await Axios({
-			// 	method: 'post',
-			// 	url: "http://127.0.0.1:8080/cart/",
-			// 	headers: { 'Authorization': 'Bearer ' + token },
-			// data: { id_item: props.match.params.id, qty: qty, total: qty * item.price }
-			// })
-
-			// await props.dispatch(postCart(token,
 			await props.dispatch(postCart(token,
 				{ id_item: props.match.params.id, qty: qty, total: qty * item.price }))
 			console.log(props.cart.status)
@@ -96,7 +88,7 @@ function DetailItem(props) {
 						<div class="col-md-6">
 							<div id="product-main-img">
 								<div class="product-preview">
-									<img src={"http://localhost:8080".concat(item.image)} alt={imgProduct} />
+									<img src={"http://52.91.248.206:8080".concat(item.image)} alt={imgProduct} />
 								</div>
 							</div>
 						</div>
@@ -117,7 +109,6 @@ function DetailItem(props) {
 								</div>
 								<div>
 									<h3 class="product-price">{item.price} </h3>
-									{/* <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3> */}
 									<span class="product-available">In Stock</span>
 								</div>
 								<p>{item.description || 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloribus odit itaque quaerat tenetur ducimus doloremque perspiciatis nisi odio, iste accusantium dolor qui aperiam harum facere sit obcaecati enim eveniet nulla.'} </p>
@@ -157,11 +148,11 @@ function DetailItem(props) {
 				{/* review */}
 				<div class="col-md-12">
 					<Review id_item={props.match.params.id}
-						url_review={"http://127.0.0.1:8080/review/" + props.match.params.id} />
+						url_review={"http://52.91.248.206:8080/review/" + props.match.params.id} />
 				</div>
 
 				<div class="col-md-12">
-				{props.itemDetail.isLoading && <div class="lds-ring"><div></div></div> }
+				{props.itemDetail.isLoading &&  <div class="lds-ring"><div></div><div></div><div></div></div> }
 					<div class="section-title text-center">
 						<h3 class="title">Related Products</h3>
 					</div>

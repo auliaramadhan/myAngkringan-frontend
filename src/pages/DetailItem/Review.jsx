@@ -35,7 +35,7 @@ function Review({ id_item, dispatch, review }) {
                <div id="reviews">
                   <ul class="reviews">
                      {/* {results.data && results.data.length > 0 && */}
-                     {review.isLoading && <div class="lds-ring"><div></div></div> }
+                     {review.isLoading &&  <div class="lds-ring"><div></div><div></div><div></div></div> }
                      {!review.isLoading && review.data.length > 0 &&
                         review.data.map((v, i) => <li>
                            <div class="review-heading">

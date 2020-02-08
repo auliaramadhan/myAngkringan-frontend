@@ -1,6 +1,37 @@
+# myAngkringan Web
+
+<h1 align="center">MyAngkringan - Simple restaurant app</h1>
+
+
+
+MyAngkringan Web is a simple restaurant application specially for Front End. Built with NodeJs using the ReactJs Framework.
+ReactJs is a library framework for Javascript to create web app.
+
+## Requirements
+1. <a href="https://nodejs.org/en/download/">Node Js</a>
+2. <a href="https://github.com/facebook/react">React</a>
+3. <a href="https://www.npmjs.com/">Npm</a>
+3. <a href="https://yarnpkg.com/">Yarn</a>
+
+## How to run the app ?
+1. Type `yarn install` [here](#requirements)
+2. if you want to use your own server turn on backend from this repo [here](https://github.com/auliaramadhan/myAngkringan)
+2. change all address in axios to your host address using replace in VSCodes
+3. run `yarn start`
+4. To build Project use `yarn build`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Screenschot
+![frontend1](./frontend1.png)
+![frontend1](./frontend2.png)
+![frontend1](./frontend3.png)
+![frontend1](./frontend4.png)
+
+
+
+<!-- ## Available Scripts
 
 In the project directory, you can run:
 
@@ -65,4 +96,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 ### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify -->

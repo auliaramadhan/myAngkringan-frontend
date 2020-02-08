@@ -20,7 +20,7 @@ const profile = (state = initialState, action) => {
       case 'POST_PROFILE_FULFILLED':
          return {
             ...state,
-            status: action.payload.data.data
+            status: action.payload.data
             , isLoading: false, isError: false
          }
       case 'GET_PROFILE_PENDING':
@@ -29,7 +29,7 @@ const profile = (state = initialState, action) => {
          }
       case 'GET_PROFILE_REJECTED':
          return {
-            ...state, isksLoading: false, isError: true
+            ...state, isLoading: false, isError: true
          }
          
       case 'GET_PROFILE_FULFILLED':

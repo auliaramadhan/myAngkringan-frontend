@@ -5,7 +5,7 @@ import cookies from 'js-cookie'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { getCart } from '../../redux/action/getData'
-import { deleteCart } from '../../redux/action/deleteData'
+import { deleteCart } from '../../redux/action/deletePutData'
 import { Toast } from 'react-bootstrap';
 
 
@@ -60,7 +60,7 @@ function Cart(props) {
          if (put.changed) {
             const newPromise = Axios({
                method: 'put',
-               url: "http://127.0.0.1:8080/cart/changeitemqty",
+               url: "http://52.91.248.206:8080/cart/changeitemqty",
                headers: { 'Authorization': 'Bearer ' + cookies.get('token') },
                data: put,
             });

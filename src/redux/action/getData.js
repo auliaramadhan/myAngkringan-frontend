@@ -4,8 +4,18 @@ import qs from 'qs'
 import { APP_URL } from './config'
 
 
-const url = "http://127.0.0.1:8080"
+const url = "http://52.91.248.206:8080"
 
+export const getAuth = (data) => {
+   return {
+      type: 'GET_AUTH',
+      payload: axios({
+      method: 'post',
+         url: `${url}/user/login`,
+         data
+      })
+   }
+}
 
 export const getItems = (query) => {
    return {
