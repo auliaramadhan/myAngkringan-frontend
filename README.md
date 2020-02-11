@@ -24,10 +24,15 @@ ReactJs is a library framework for Javascript to create web app.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Screenschot
-![frontend1](./frontend1.png)
-![frontend1](./frontend2.png)
-![frontend1](./frontend3.png)
-![frontend1](./frontend4.png)
+
+<p float="left">
+  <img src="./frontend1.png" width="45%" />
+  <img src="./frontend2.png" width="45%" />
+  <img src="./frontend3.png" width="45%" />
+  <img src="./frontend4.png" width="45%" />
+</p>
+<img src="./gif.png" width="40%" />
+
 
 
 
